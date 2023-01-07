@@ -21,53 +21,43 @@ productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
 
 //const searchInput = document.getElementById('search-input');
 
+
+let Brand = [];
+let Category = [];
 function getNameFIlter(){
-    //let res = [];
     let nameFilter = [];
-    // let countBrand = [];
-    // let countCategory =[];
-    //const searchParam = getQuery().search.join();
         for (let btn of filterBtns) {
             btn.addEventListener('click', (event) => {
             btn.toggleAttribute("disabled")
             btn.classList.toggle('list-item-active')
             let name = event.target.textContent;
             nameFilter.push(name)
-            NewFiltArr(extraCards, nameFilter)
-            // if (event.target.dataset.filter == 'category') {
-            //     countCategory.push(1)
-            // } else {
-            //     countBrand.push(1);
-            // }
-            // if (countBrand.length > 0 && countCategory.length == 0) {
-            //     console.log('fdfdfd')
-            //     let sortArr = cards.filter(item => nameFilter.includes(item.brand)) ;
-            // //res = cards.filter(card => card.brand.toLowerCase().includes(searchParam));
-            // console.log(sortArr)
-            // // console.log(cards)
-            // productsContainer.innerHTML = (sortArr.map(item => Card(item))).join("");
-            // } else if (countBrand.length == 0 && countCategory.length > 0) {
-            //     let sortArrB = cards.filter(item => nameFilter.includes(item.category)) ;
-            //     productsContainer.innerHTML = (sortArrB.map(item => Card(item))).join("");
-            //     console.log(sortArrB)
-            // } else if (countBrand.length > 0 && countCategory.length > 0) {
-            //     let sortArrC = cards.filter(item => nameFilter.includes(item.category) && nameFilter.includes(item.brand)) ;
-            //     productsContainer.innerHTML = (sortArrC.map(item => Card(item))).join("");
-            //     console.log(sortArrC)
-            // }
+            if (event.target.dataset.filter == 'category') {
+                Category.push(name);
+            } else {
+                Brand.push(name);
+            }
+            NewFiltArr(cards, nameFilter)
         });
         
         }
 
-        //return res;
 };
 getNameFIlter();
 
 let extraCards = [...cards];
+let extraCardsAllFilter = [...cards];
 
 function NewFiltArr(arr1, params) {
-    extraCards = arr1.filter(item => params.includes(item.brand)  ||  params.includes(item.category))
-    productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+    productsContainer.innerHTML = null;
+    if (Brand.length == 0 || Category.length == 0) {
+        extraCards = arr1.filter(item => params.includes(item.brand)  ||  params.includes(item.category))
+        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+    } else {
+        extraCardsAllFilter = arr1.filter(item => params.includes(item.brand)  &&  params.includes(item.category))
+        productsContainer.innerHTML = (extraCardsAllFilter.map(item => Card(item))).join("");
+    }
+
 }
 
 
