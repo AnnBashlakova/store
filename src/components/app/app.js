@@ -33,7 +33,7 @@ function getNameFIlter(){
             btn.classList.toggle('list-item-active')
             let name = event.target.textContent;
             nameFilter.push(name)
-            NewFiltArr(cards, name)
+            NewFiltArr(extraCards, nameFilter)
             // if (event.target.dataset.filter == 'category') {
             //     countCategory.push(1)
             // } else {
@@ -63,7 +63,7 @@ function getNameFIlter(){
 };
 getNameFIlter();
 
-let extraCards;
+let extraCards = [...cards];
 
 function NewFiltArr(arr1, params) {
     extraCards = arr1.filter(item => params.includes(item.brand)  ||  params.includes(item.category))
@@ -128,7 +128,7 @@ inputFilter();*/
 
 
 const slider = (element) => {
-    console.log('dfdffd')
+
     const slider = Boolean(element.classList) ? element : document.querySelector(selector);
     const rangeInput = slider.querySelectorAll(".range-input input");
     const priceInput = slider.querySelectorAll(".price-input input");
