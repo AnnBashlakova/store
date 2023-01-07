@@ -3,7 +3,7 @@ export default function Card(item) {
     return ` <div class="product-card">
                 
     <div class="product-top">
-        <span class="product-name">${item.img1model}</span>
+        <span class="product-name">${item.model}</span>
     </div>
 
     <div class="product-middle">
@@ -24,7 +24,7 @@ export default function Card(item) {
 
     </div>
 
-    </div>` 
+    </div>`
 }
 
 

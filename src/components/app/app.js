@@ -8,7 +8,14 @@ const filterBtns = document.querySelectorAll('.list-item');
 
 
 
-productsContainer.innerHTML = cards.forEach(item => Card(item));
+// productsContainer.innerHTML = ret cards.forEach(item => {
+//     Card(item)
+// });
+
+productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
+
+
+
 //клик по кнопке-> coртировка
 
 
@@ -17,44 +24,37 @@ productsContainer.innerHTML = cards.forEach(item => Card(item));
 function getNameFIlter(){
     //let res = [];
     let nameFilter = [];
-    let countBrand = [];
-    let countCategory =[];
+    // let countBrand = [];
+    // let countCategory =[];
     //const searchParam = getQuery().search.join();
         for (let btn of filterBtns) {
-            
             btn.addEventListener('click', (event) => {
             btn.toggleAttribute("disabled")
             btn.classList.toggle('list-item-active')
             let name = event.target.textContent;
             nameFilter.push(name)
-            if (event.target.dataset.filter == 'category') {
-                countCategory.push(1)
-            } else {
-                countBrand.push(1);
-            }
-            if (countBrand.length > 0 && countCategory.length == 0) {
-                console.log('fdfdfd')
-                let sortArr = cards.filter(item => nameFilter.includes(item.brand)) ;
-            //res = cards.filter(card => card.brand.toLowerCase().includes(searchParam));
-            console.log(sortArr)
-            // console.log(cards)
-            productsContainer.innerHTML = getItems(sortArr);
-            } else if (countBrand.length == 0 && countCategory.length > 0) {
-                let sortArrB = cards.filter(item => nameFilter.includes(item.category)) ;
-                productsContainer.innerHTML = getItems(sortArrB);
-                console.log(sortArrB)
-            } else if (countBrand.length > 0 && countCategory.length > 0) {
-                let sortArrC = cards.filter(item => nameFilter.includes(item.category) && nameFilter.includes(item.brand)) ;
-                productsContainer.innerHTML = getItems(sortArrC);
-                console.log(sortArrC)
-            }
-            // console.log(nameFilter)
-            // const sortArr = cards.filter(card => card.brand == name.toUpperCase());
-            // const sortArr = cards.filter(item => nameFilter.some(d => d == item.brand || d == item.category ))
-            // const sortArr = cards.filter(item => nameFilter.includes(item.brand) || nameFilter.includes(item.category)) ;
+            NewFiltArr(cards, name)
+            // if (event.target.dataset.filter == 'category') {
+            //     countCategory.push(1)
+            // } else {
+            //     countBrand.push(1);
+            // }
+            // if (countBrand.length > 0 && countCategory.length == 0) {
+            //     console.log('fdfdfd')
+            //     let sortArr = cards.filter(item => nameFilter.includes(item.brand)) ;
             // //res = cards.filter(card => card.brand.toLowerCase().includes(searchParam));
             // console.log(sortArr)
-            // productsContainer.innerHTML = getItems(sortArr);
+            // // console.log(cards)
+            // productsContainer.innerHTML = (sortArr.map(item => Card(item))).join("");
+            // } else if (countBrand.length == 0 && countCategory.length > 0) {
+            //     let sortArrB = cards.filter(item => nameFilter.includes(item.category)) ;
+            //     productsContainer.innerHTML = (sortArrB.map(item => Card(item))).join("");
+            //     console.log(sortArrB)
+            // } else if (countBrand.length > 0 && countCategory.length > 0) {
+            //     let sortArrC = cards.filter(item => nameFilter.includes(item.category) && nameFilter.includes(item.brand)) ;
+            //     productsContainer.innerHTML = (sortArrC.map(item => Card(item))).join("");
+            //     console.log(sortArrC)
+            // }
         });
         
         }
@@ -62,6 +62,17 @@ function getNameFIlter(){
         //return res;
 };
 getNameFIlter();
+
+let extraCards;
+
+function NewFiltArr(arr1, params) {
+    extraCards = arr1.filter(item => params.includes(item.brand)  ||  params.includes(item.category))
+    productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+}
+
+
+
+
 
     /*let nameFilter = []
     let url = new URL(window.location)
