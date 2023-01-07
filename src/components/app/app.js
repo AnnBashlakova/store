@@ -1,47 +1,17 @@
 import cards from "../../data.js";
 import { getQuery } from "../view/query.js";
+import Card from "../view/components/card.js";
 
 
-const productsContainer = document.querySelector('.products-list')
-
-productsContainer.innerHTML = getItems(cards);
-
-
-function getItems(array) {
-            return  array.map(item => ` 
-
-    <div class="product-card">
-                
-                        <div class="product-top">
-                            <span class="product-name">${item.model}</span>
-                        </div>
-                
-                        <div class="product-middle">
-                            <img class="product-img" src="${item.img1}" alt="nike_air_force_1.jpg">
-                
-                            <ul class="product-data-list">
-                            <li class="categori">Category:${item.category}</li>
-                            <li class="brand-ame">Brand:${item.brand}</li>
-                            <li class="price">Price:${item.price}$</li>
-                            <li class="stock">Stock:${item.stock}</li>
-                            </ul>
-                        </div>
-                
-                        <div class="product-bottom">
-                
-                            <button class="btn btn-add">ADD TO BASKET</button>
-                            <button class="btn btn-info">MORE INFO</button>
-                
-                        </div>
-                
-                        </div>` 
-    ).join(''); }
+const productsContainer = document.querySelector('.products-list');
+const filterBtns = document.querySelectorAll('.list-item');
 
 
 
+productsContainer.innerHTML = cards.forEach(item => Card(item));
 //клик по кнопке-> coртировка
 
-const filterBtns = document.querySelectorAll('.list-item');
+
 //const searchInput = document.getElementById('search-input');
 
 function getNameFIlter(){
@@ -143,3 +113,53 @@ getNameFIlter();
     })
 }
 inputFilter();*/
+
+
+
+const slider = (element) => {
+    console.log('dfdffd')
+    const slider = Boolean(element.classList) ? element : document.querySelector(selector);
+    const rangeInput = slider.querySelectorAll(".range-input input");
+    const priceInput = slider.querySelectorAll(".price-input input");
+    const range = slider.querySelector(".slider .progress");
+
+    let priceGap = 1000;
+
+    priceInput.forEach(input => {
+        input.addEventListener("input", e => {
+            let minPrice = parseInt(priceInput[0].value),
+                maxPrice = parseInt(priceInput[1].value);
+
+            if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                if (e.target.className === "input-min") {
+                    rangeInput[0].value = minPrice;
+                    range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                } else {
+                    rangeInput[1].value = maxPrice;
+                    range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                }
+            }
+        });
+    });
+
+    rangeInput.forEach(input => {
+        input.addEventListener("input", e => {
+            let minVal = parseInt(rangeInput[0].value),
+                maxVal = parseInt(rangeInput[1].value);
+            if ((maxVal - minVal) < priceGap) {
+                if (e.target.className === "range-min") {
+                    rangeInput[0].value = maxVal - priceGap
+                } else {
+                    rangeInput[1].value = minVal + priceGap;
+                }
+            } else {
+                priceInput[0].value = minVal;
+                priceInput[1].value = maxVal;
+                range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+            }
+        });
+    });
+}
+
+document.querySelectorAll(".element").forEach(n => slider(n));
