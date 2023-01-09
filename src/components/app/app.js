@@ -83,7 +83,7 @@ function getPriceVal(e,namb1,namb2) {
         priceMax = namb2;
     } else {
         stockMin = namb1;
-        stockMAx = namb2;
+        stockMax = namb2;
     }
 }
 
@@ -144,6 +144,29 @@ const slider = (element) => {
 document.querySelectorAll(".element").forEach(n => slider(n)); //слушатель на два слайдера
 
 
+const inputStockMin = document.querySelectorAll('.inputMinValue')
+const inputStockMax = document.querySelectorAll('.inputMaxValueStock')
+const inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
+const Progress = document.querySelectorAll('.progress')
+
+document.querySelector('.btn-reset').addEventListener('click',function () {
+    priceMin = 0;
+    priceMax = 1000;
+    stockMin = 0;
+    stockMax = 45;
+    Brand.length = 0;
+    Category.length = 0;
+    nameFilter.length = 0
+    inputStockMin.value = 0;
+    productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
+    filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
+    filterBtns.forEach(btn => btn.removeAttribute("disabled"));
+    inputStockMin.forEach(inp => inp.value = priceMin);
+    inputStockMax.forEach(inp => inp.value = stockMax);
+    inputPriceMax.forEach(inp => inp.value = priceMax);
+    Progress.forEach(progress => progress.style.right='0%')
+
+})
 /*let nameFilter = []
 let url = new URL(window.location)
 let params = new URLSearchParams(url.search)
