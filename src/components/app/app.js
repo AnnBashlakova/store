@@ -32,7 +32,7 @@ function changeUrl (arrBrand, arrCategory) {
     let params = new URLSearchParams(url.search)
     let strNamefilterBrand = arrBrand.join('%')
     let strNamefilterCategory = arrCategory.join('%')
-    url.searchParams.set('brand' , 'strNamefilterBrand');
+    url.searchParams.set('brand' , strNamefilterBrand);
     console.log(url)
     window.location = url;
 }
