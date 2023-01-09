@@ -26,6 +26,18 @@ let stockMax = 45;
 let Brand = [];
 let Category = [];
 let nameFilter = [];
+
+function changeUrl (arrBrand, arrCategory) {
+    let url = new URL(window.location)
+    let params = new URLSearchParams(url.search)
+    let strNamefilterBrand = arrBrand.join('%')
+    let strNamefilterCategory = arrCategory.join('%')
+    url.searchParams.set('brand' , 'strNamefilterBrand');
+    console.log(url)
+    window.location = url;
+}
+
+
 //массив с параметрами фильтра-> при клике, фильтрация карточек, по параметрам из массива
 function getNameFIlter() {
     for (let btn of filterBtns) {
@@ -40,6 +52,7 @@ function getNameFIlter() {
                 Brand.push(name);
             }
             NewFiltArr(cards, nameFilter)
+            changeUrl(Brand, Category)
         });
 
     };
@@ -166,18 +179,14 @@ document.querySelector('.btn-reset').addEventListener('click',function () {
     Progress.forEach(progress => progress.style.right='0%')
 
 })
-/*let nameFilter = []
-let url = new URL(window.location)
-let params = new URLSearchParams(url.search)
-//url.searchParams.set('nike');
-console.log(url)
-//window.location = url;
 
-btn.addEventListener('click', (event) => {
-    if (event.target) {
-        params.append(event.target.textContent, event.target.value);
-    }
-})*/
+
+
+// const urlParams = new URLSearchParams(window.location.search);
+
+
+
+
 
 // function enabledROuteChange() {
 //     window.addEventListener('hashchange', () => {
@@ -193,13 +202,9 @@ btn.addEventListener('click', (event) => {
 // let url = new URL(window.location)
 
 
-// const urlParams = new URLSearchParams(window.location.search);
 
-// console.log(url)
-// console.log(urlParams)
-// console.log(params)
 
-// new URL('https://google.com/search?query=JavaScript')
+
 
 
 //инпут сортировка
