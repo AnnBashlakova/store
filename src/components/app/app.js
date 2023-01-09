@@ -17,11 +17,11 @@ let extraCards = [...cards];//копии массива с карточками 
 
 
 //const searchInput = document.getElementById('search-input');
-let priceMin = 0;
-let priceMax = 1000;
+let priceMin = '0';
+let priceMax = '1000';
 
-let stockMin = 0;
-let stockMax = 45;
+let stockMin =  '0';
+let stockMax = '45';
 
 let Brand = [];
 let Category = [];
@@ -29,12 +29,16 @@ let nameFilter = [];
 
 function changeUrl (arrBrand, arrCategory) {
     let url = new URL(window.location)
-    let params = new URLSearchParams(url.search)
+    // let params = new URLSearchParams(url.search)
     let strNamefilterBrand = arrBrand.join('%')
     let strNamefilterCategory = arrCategory.join('%')
-    url.searchParams.set('brand' , strNamefilterBrand);
+    strNamefilterBrand && url.searchParams.set('brand' , strNamefilterBrand);
+    strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
+    url.searchParams.set('price' , `${priceMin}to${priceMax}`);
+    url.searchParams.set('stock' , `${stockMin}to${stockMax}`);
     console.log(url)
-    window.location = url;
+    // window.location = url;
+    window.history.pushState({}, '', url.href); 
 }
 
 
@@ -116,6 +120,7 @@ const slider = (element) => {
             maxPrice = parseInt(priceInput[1].value);
             getPriceVal(e,minPrice, maxPrice);
             NewFiltArr(cards, nameFilter)
+            changeUrl(Brand, Category)
                 
             if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
                 if (e.target.className === "input-min") {
@@ -138,6 +143,7 @@ const slider = (element) => {
                 maxVal = parseInt(rangeInput[1].value);
                 getPriceVal(e,minVal ,maxVal);
                 NewFiltArr(cards, nameFilter)
+                changeUrl(Brand, Category)
             if ((maxVal - minVal) < priceGap) {
                 if (e.target.className === "range-min") {
                     rangeInput[0].value = maxVal - priceGap
