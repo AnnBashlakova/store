@@ -1,49 +1,35 @@
 import cards from "../../data.js";
-import { getQuery } from "../view/query.js";
+import {
+    getQuery
+} from "../view/query.js";
 import Card from "../view/components/card.js";
 
 
-const productsContainer = document.querySelector('.products-list');
+
+const productsContainer = document.querySelector('.products-list')
 const filterBtns = document.querySelectorAll('.list-item');
 
+    productsContainer.innerHTML = (cards.map(item => Card(item))).join(""); //заполнение верстки карточками
 
-productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
 
-let NumberMin = 0;
-let NumberMax = 1000;
-let extraCards = [...cards];
-let extraCardsAllFilter = [...cards];
 
-function getNumberFilter() {
-    NumberMin = priceInputs[0].value
-    NumberMax = priceInputs[1].value
-    // console.log(NumberMin)
-    // console.log(NumberMax)
-
-}
-
-let StockMin = 0;
-let StockMax = 45;
-function getNumberStock() {
-    StockMin = priceInputs[2].value
-    StockMax = priceInputs[3].value
-    console.log(StockMin)
-    console.log(StockMax)
-
-}
-
-//клик по кнопке-> coртировка
+let extraCards = [...cards];//копии массива с карточками товаров
 
 
 //const searchInput = document.getElementById('search-input');
+let priceMin = 0;
+let priceMax = 1000;
 
+let stockMin = 0;
+let stockMax = 45;
 
 let Brand = [];
 let Category = [];
 let nameFilter = [];
-function getNameFIlter(){
-        for (let btn of filterBtns) {
-            btn.addEventListener('click', (event) => {
+//массив с параметрами фильтра-> при клике, фильтрация карточек, по параметрам из массива
+function getNameFIlter() {
+    for (let btn of filterBtns) {
+        btn.addEventListener('click', (event) => {
             btn.toggleAttribute("disabled")
             btn.classList.toggle('list-item-active')
             let name = event.target.textContent;
@@ -55,66 +41,52 @@ function getNameFIlter(){
             }
             NewFiltArr(cards, nameFilter)
         });
-        
-        }
 
+    };
 };
 getNameFIlter();
 
+//фильтрация по категориям
+function NewFiltArr(arr1, params) {
+    productsContainer.innerHTML = null;
 
-    /*let nameFilter = []
-    let url = new URL(window.location)
-    let params = new URLSearchParams(url.search)
-    //url.searchParams.set('nike');
-    console.log(url)
-    //window.location = url;
+    if (Brand.length == 0 && Category.length == 0) {
+        console.log(priceMin)
+        console.log(stockMax)
+        extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
+        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
 
-    btn.addEventListener('click', (event) => {
-        if (event.target) {
-            params.append(event.target.textContent, event.target.value);
-        }
-    })*/
+    }
+    else if (Brand.length == 0 || Category.length == 0) {
+        console.log(priceMin)
+        console.log(stockMax)
+        extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
+        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
 
-    // function enabledROuteChange() {
-    //     window.addEventListener('hashchange', () => {
-    //         const hash= window.location.hash;
-    //         console.log(hash)
-    //     })
-    // }
-    // enabledROuteChange()
-
-
-
-
-    // let url = new URL(window.location)
+    } else  {
+        console.log(priceMin)
+        console.log(stockMax)
+        extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
+        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+    };
+};
 
 
-    // const urlParams = new URLSearchParams(window.location.search);
-
-    // console.log(url)
-    // console.log(urlParams)
-    // console.log(params)
-
-    // new URL('https://google.com/search?query=JavaScript')
 
 
-//инпут сортировка
+// числовой фильтр
+// const priceInputs = document.querySelectorAll(".price-input input");
 
-
-/*function inputFilter() {
-    searchInput.addEventListener('input', (event) => {
-        const value = event.target.value;
-        cards.forEach(card => {
-            const isVisible = card.brand.includes(value) || card.category.includes(value)
-            console.log(isVisible)
-            prodCard.classList.toggle("hidden", !isVisible)
-        })
-    })
+function getPriceVal(e,namb1,namb2) {
+    if (e.target.dataset.filter =='price') {
+        priceMin = namb1;
+        priceMax = namb2;
+    } else {
+        stockMin = namb1;
+        stockMAx = namb2;
+    }
 }
-inputFilter();*/
 
-/////// числовой фильтр
-const priceInputs = document.querySelectorAll(".price-input input");
 const slider = (element) => {
 
     const slider = Boolean(element.classList) ? element : document.querySelector(selector);
@@ -127,15 +99,11 @@ const slider = (element) => {
     //слушатель на инпут
     priceInput.forEach(input => {
         input.addEventListener("input", e => {
-            getNumberFilter();
-            getNumberStock();
-            NewFiltArrNumb(cards, NumberMin, NumberMax);
-            NewFiltArrStock(cards, StockMin, StockMax);
-            // console.log(priceInput[0].value)
-            // console.log(priceInput[1].value)
-
             let minPrice = parseInt(priceInput[0].value),
-                maxPrice = parseInt(priceInput[1].value);
+            maxPrice = parseInt(priceInput[1].value);
+            getPriceVal(e,minPrice, maxPrice);
+            NewFiltArr(cards, nameFilter)
+                
             if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
                 if (e.target.className === "input-min") {
                     rangeInput[0].value = minPrice;
@@ -152,12 +120,11 @@ const slider = (element) => {
     //слушатель на ползунок
     rangeInput.forEach(input => {
         input.addEventListener("input", e => {
-            getNumberFilter();
-            getNumberStock();
-            NewFiltArrNumb(cards, NumberMin, NumberMax);
-            NewFiltArrStock(cards, StockMin, StockMax)
+            
             let minVal = parseInt(rangeInput[0].value),
                 maxVal = parseInt(rangeInput[1].value);
+                getPriceVal(e,minVal ,maxVal);
+                NewFiltArr(cards, nameFilter)
             if ((maxVal - minVal) < priceGap) {
                 if (e.target.className === "range-min") {
                     rangeInput[0].value = maxVal - priceGap
@@ -174,50 +141,56 @@ const slider = (element) => {
     });
 }
 
-document.querySelectorAll(".element").forEach(n => slider(n));
+document.querySelectorAll(".element").forEach(n => slider(n)); //слушатель на два слайдера
 
 
-// const inputNumber = document.querySelector('.filter-price')
-// console.log(inputNumber)
+/*let nameFilter = []
+let url = new URL(window.location)
+let params = new URLSearchParams(url.search)
+//url.searchParams.set('nike');
+console.log(url)
+//window.location = url;
 
-// inputNumber.addEventListener("input", console.log(inputNumber.value))
-
-
-// let NumberMin = 0;
-// let NumberMax = 1000;
-
-
-// let extraCards = [...cards];
-// let extraCardsAllFilter = [...cards];
-
-function NewFiltArr(arr1, params) {
-    console.log(NumberMin)
-    console.log(NumberMax)
-    productsContainer.innerHTML = null;
-    if (Brand.length == 0 || Category.length == 0) {
-        extraCards = arr1.filter(item => item.price >= NumberMin && item.price <= NumberMax && item.stock >= StockMin && item.stock <= StockMax && params.includes(item.brand)  ||  params.includes(item.category))
-        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
-    } else if(Brand.length == 0 && Category.length == 0) {
-        extraCardsAllFilter = arr1.filter(item => item.price >= NumberMin && item.price <= NumberMax && item.stock >= StockMin && item.stock <= StockMax)
-        productsContainer.innerHTML = (extraCardsAllFilter.map(item => Card(item))).join("");
-    } else  {
-        extraCardsAllFilter = arr1.filter(item => item.price >= NumberMin && item.price <= NumberMax && item.stock >= StockMin && item.stock <= StockMax && params.includes(item.brand)  &&  params.includes(item.category))
-        productsContainer.innerHTML = (extraCardsAllFilter.map(item => Card(item))).join("");
+btn.addEventListener('click', (event) => {
+    if (event.target) {
+        params.append(event.target.textContent, event.target.value);
     }
+})*/
 
+// function enabledROuteChange() {
+//     window.addEventListener('hashchange', () => {
+//         const hash= window.location.hash;
+//         console.log(hash)
+//     })
+// }
+// enabledROuteChange()
+
+
+
+
+// let url = new URL(window.location)
+
+
+// const urlParams = new URLSearchParams(window.location.search);
+
+// console.log(url)
+// console.log(urlParams)
+// console.log(params)
+
+// new URL('https://google.com/search?query=JavaScript')
+
+
+//инпут сортировка
+
+
+/*function inputFilter() {
+    searchInput.addEventListener('input', (event) => {
+        const value = event.target.value;
+        cards.forEach(card => {
+            const isVisible = card.brand.includes(value) || card.category.includes(value)
+            console.log(isVisible)
+            prodCard.classList.toggle("hidden", !isVisible)
+        })
+    })
 }
-
-
-function NewFiltArrNumb(arr1, num1, num2) {
-
-        let extraCardsNum = arr1.filter(item => item.price >= num1 && item.price <= num2)
-        productsContainer.innerHTML = (extraCardsNum.map(item => Card(item))).join("");
-
-}
-
-function NewFiltArrStock(arr1, num1, num2) {
-
-    let extraCardsStock = arr1.filter(item => item.stock >= num1 && item.stock <= num2)
-    productsContainer.innerHTML = (extraCardsStock.map(item => Card(item))).join("");
-
-}
+inputFilter();*/
