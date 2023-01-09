@@ -157,7 +157,6 @@ document.querySelector('.btn-reset').addEventListener('click',function () {
     Brand.length = 0;
     Category.length = 0;
     nameFilter.length = 0
-    inputStockMin.value = 0;
     productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
     filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
     filterBtns.forEach(btn => btn.removeAttribute("disabled"));
