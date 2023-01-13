@@ -1,18 +1,49 @@
+// import AppController from '../controller/controller';
+// export default class App {
+//   controller: AppController;
+
+//   constructor() {
+//     this.controller = new AppController();
+//   }
+
+// }
+
+
+
 import cards from "../../data.js";
 import {
     getQuery
 } from "../view/query.js";
-import AllCards from "../view/components/card.js";
-
+import Card from "../view/components/card.js";
 
 const productsContainer = document.querySelector('.products-list')
 const filterBtns = document.querySelectorAll('.list-item');
 const BtnReset = document.querySelector('.btn-reset')
 const searchInput = document.getElementById('search-input');
 const SelectOption = document.querySelector('select')
-console.log(SelectOption)
+
+
+// class 
+
+const allCards = new Card(cards)
+
+    // productsContainer.innerHTML = (cards.map(item => {
+    //     const card = new Card(item)}
+    //     ).join(""); //заполнение верстки карточками
+
+
+    // productsContainer.innerHTML = (cards.map(item => {
+    //     const card = new Card(item)}
+    //     )).join(""); //заполнение верстки карточками
+
+        productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
 
 let Option;
+
+// class Sort {
+
+// }
+
 function SortCard(arr){
     SelectOption.addEventListener('change', () => {
         console.log(SelectOption.value)
@@ -20,22 +51,46 @@ function SortCard(arr){
         if (Option == 'value1') {
             let sortCards = arr.sort((a,b) =>a.price - b.price);
 
-            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+            productsContainer.innerHTML = (sortCards.map(item =>Cards.Card(item))).join("");
         } else if (Option == 'value2') {
             let sortCards = arr.sort((a,b) =>b.price - a.price);
 
-            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
         } else if (Option == 'value3') {
             let sortCards = arr.sort((a,b) =>a.stock - b.stock);
 
-            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
         } else if (Option == 'value4') {
             let sortCards = arr.sort((a,b) =>b.stock - a.stock);
 
-            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
         }
     })
 }
+
+// function SortCard(arr){
+//     SelectOption.addEventListener('change', () => {
+//         console.log(SelectOption.value)
+//         Option = SelectOption.value
+//         if (Option == 'value1') {
+//             let sortCards = arr.sort((a,b) =>a.price - b.price);
+
+//             productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+//         } else if (Option == 'value2') {
+//             let sortCards = arr.sort((a,b) =>b.price - a.price);
+
+//             productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+//         } else if (Option == 'value3') {
+//             let sortCards = arr.sort((a,b) =>a.stock - b.stock);
+
+//             productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+//         } else if (Option == 'value4') {
+//             let sortCards = arr.sort((a,b) =>b.stock - a.stock);
+
+//             productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+//         }
+//     })
+// }
 
 SortCard(cards);
 // function SortCard() {
@@ -45,9 +100,9 @@ SortCard(cards);
 // }
 // SortCard();
 
-const allCards = new AllCards(cards)
-console.log(allCards)
-    productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join(""); //заполнение верстки карточками
+// const allCards = new AllCards(cards)
+// console.log(allCards)
+//     productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join(""); //заполнение верстки карточками
 
 
 
@@ -226,7 +281,7 @@ BtnReset.addEventListener('click',function () {
     Category.length = 0;
     nameFilter.length = 0
     inputStockMin.value = 0;
-    productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
+    productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
     filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
     filterBtns.forEach(btn => btn.removeAttribute("disabled"));
     inputStockMin.forEach(inp => inp.value = priceMin);
@@ -245,7 +300,7 @@ function inputFilter() {
     searchInput.addEventListener('input', (event) => {
         const value = (event.target.value.trim()).toUpperCase();
         let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
-        productsContainer.innerHTML = (FiltrCard.map(item => Card(item))).join("");
+        productsContainer.innerHTML = (FiltrCard.map(item => allCards.Card(item))).join("");
         if (FiltrCard.length == 0) {
             productsContainer.innerHTML = 'Nothing found';
         }
@@ -272,7 +327,7 @@ col.addEventListener('click', () => {
     productCard.forEach((item) => item.classList.add('product-card-column'));
     col.style.border='2px solid red';
     row.style.border='';
-    console.log('fdfdf')
+
 });
 
 row.addEventListener('click', () => {
@@ -280,5 +335,5 @@ row.addEventListener('click', () => {
     productCard.forEach((item) => item.classList.remove('product-card-column'));
     row.style.border='2px solid red';
     col.style.border='';
-    console.log('fdfdf')
+
 });
