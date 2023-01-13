@@ -8,6 +8,43 @@ import Card from "../view/components/card.js";
 
 const productsContainer = document.querySelector('.products-list')
 const filterBtns = document.querySelectorAll('.list-item');
+const BtnReset = document.querySelector('.btn-reset')
+const searchInput = document.getElementById('search-input');
+const SelectOption = document.querySelector('select')
+console.log(SelectOption)
+
+let Option;
+function SortCard(arr){
+    SelectOption.addEventListener('change', () => {
+        console.log(SelectOption.value)
+        Option = SelectOption.value
+        if (Option == 'value1') {
+            let sortCards = arr.sort((a,b) =>a.price - b.price);
+
+            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+        } else if (Option == 'value2') {
+            let sortCards = arr.sort((a,b) =>b.price - a.price);
+
+            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+        } else if (Option == 'value3') {
+            let sortCards = arr.sort((a,b) =>a.stock - b.stock);
+
+            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+        } else if (Option == 'value4') {
+            let sortCards = arr.sort((a,b) =>b.stock - a.stock);
+
+            productsContainer.innerHTML = (sortCards.map(item => Card(item))).join("");
+        }
+    })
+}
+
+SortCard(cards);
+// function SortCard() {
+//     SelectOption.forEach(opt => opt.addEventListener('click', () => {
+//         console.log('fgggfg')
+//     }))
+// }
+// SortCard();
 
     productsContainer.innerHTML = (cards.map(item => Card(item))).join(""); //заполнение верстки карточками
 
@@ -16,16 +53,17 @@ const filterBtns = document.querySelectorAll('.list-item');
 let extraCards = [...cards];//копии массива с карточками товаров
 
 
-//const searchInput = document.getElementById('search-input');
+
 let priceMin = '0';
 let priceMax = '1000';
 
-let stockMin =  '0';
+let stockMin = '0';
 let stockMax = '45';
 
 let Brand = [];
 let Category = [];
 let nameFilter = [];
+
 
 function changeUrl (arrBrand, arrCategory) {
     let url = new URL(window.location)
@@ -36,6 +74,7 @@ function changeUrl (arrBrand, arrCategory) {
     strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
     url.searchParams.set('price' , `${priceMin}to${priceMax}`);
     url.searchParams.set('stock' , `${stockMin}to${stockMax}`);
+    url.searchParams.set('search' , searchInput.value );
     console.log(url)
     // window.location = url;
     window.history.pushState({}, '', url.href); 
@@ -55,8 +94,8 @@ function getNameFIlter() {
             } else {
                 Brand.push(name);
             }
-            NewFiltArr(cards, nameFilter)
-            changeUrl(Brand, Category)
+            NewFiltArr(cards, nameFilter);
+            changeUrl(Brand, Category);
         });
 
     };
@@ -67,25 +106,32 @@ getNameFIlter();
 function NewFiltArr(arr1, params) {
     productsContainer.innerHTML = null;
 
-    if (Brand.length == 0 && Category.length == 0) {
-        console.log(priceMin)
-        console.log(stockMax)
+    if (Brand.length == 0 && Category.length == 0 ) {
+        
         extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+        if (extraCards.length == 0) {
+            productsContainer.innerHTML = 'Nothing found';
+        }
 
     }
     else if (Brand.length == 0 || Category.length == 0) {
-        console.log(priceMin)
-        console.log(stockMax)
+        console.log(searchInput.value.length)
         extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+        if (extraCards.length == 0) {
+            productsContainer.innerHTML = 'Nothing found';
+        }
 
     } else  {
-        console.log(priceMin)
-        console.log(stockMax)
         extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+        if (extraCards.length == 0) {
+            productsContainer.innerHTML = 'Nothing found';
+        }
     };
+    SortCard(extraCards)
+    
 };
 
 
@@ -113,14 +159,16 @@ const slider = (element) => {
 
     let priceGap = 10;
 
+
     //слушатель на инпут
     priceInput.forEach(input => {
         input.addEventListener("input", e => {
             let minPrice = parseInt(priceInput[0].value),
             maxPrice = parseInt(priceInput[1].value);
             getPriceVal(e,minPrice, maxPrice);
-            NewFiltArr(cards, nameFilter)
-            changeUrl(Brand, Category)
+            NewFiltArr(cards, nameFilter);
+            changeUrl(Brand, Category);
+            SortCard(extraCards)
                 
             if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
                 if (e.target.className === "input-min") {
@@ -142,8 +190,9 @@ const slider = (element) => {
             let minVal = parseInt(rangeInput[0].value),
                 maxVal = parseInt(rangeInput[1].value);
                 getPriceVal(e,minVal ,maxVal);
-                NewFiltArr(cards, nameFilter)
-                changeUrl(Brand, Category)
+                NewFiltArr(cards, nameFilter);
+                changeUrl(Brand, Category);
+                SortCard(extraCards)
             if ((maxVal - minVal) < priceGap) {
                 if (e.target.className === "range-min") {
                     rangeInput[0].value = maxVal - priceGap
@@ -162,13 +211,12 @@ const slider = (element) => {
 
 document.querySelectorAll(".element").forEach(n => slider(n)); //слушатель на два слайдера
 
-
 const inputStockMin = document.querySelectorAll('.inputMinValue')
 const inputStockMax = document.querySelectorAll('.inputMaxValueStock')
 const inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
 const Progress = document.querySelectorAll('.progress')
 
-document.querySelector('.btn-reset').addEventListener('click',function () {
+BtnReset.addEventListener('click',function () {
     priceMin = 0;
     priceMax = 1000;
     stockMin = 0;
@@ -176,6 +224,7 @@ document.querySelector('.btn-reset').addEventListener('click',function () {
     Brand.length = 0;
     Category.length = 0;
     nameFilter.length = 0
+    inputStockMin.value = 0;
     productsContainer.innerHTML = (cards.map(item => Card(item))).join("");
     filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
     filterBtns.forEach(btn => btn.removeAttribute("disabled"));
@@ -188,42 +237,47 @@ document.querySelector('.btn-reset').addEventListener('click',function () {
 
 
 
-// const urlParams = new URLSearchParams(window.location.search);
-
-
-
-
-
-// function enabledROuteChange() {
-//     window.addEventListener('hashchange', () => {
-//         const hash= window.location.hash;
-//         console.log(hash)
-//     })
-// }
-// enabledROuteChange()
-
-
-
-
-// let url = new URL(window.location)
-
-
-
-
-
-
-
 //инпут сортировка
 
 
-/*function inputFilter() {
+function inputFilter() {
     searchInput.addEventListener('input', (event) => {
-        const value = event.target.value;
-        cards.forEach(card => {
-            const isVisible = card.brand.includes(value) || card.category.includes(value)
-            console.log(isVisible)
-            prodCard.classList.toggle("hidden", !isVisible)
-        })
+        const value = (event.target.value.trim()).toUpperCase();
+        let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
+        productsContainer.innerHTML = (FiltrCard.map(item => Card(item))).join("");
+        if (FiltrCard.length == 0) {
+            productsContainer.innerHTML = 'Nothing found';
+        }
+        changeUrl(Brand, Category)
+        SortCard(FiltrCard)
+        // cards.forEach(card => {
+        //     const isVisible = card.brand.includes(value) || card.category.includes(value)
+        //     console.log(isVisible)
+        //     prodCard.classList.toggle("hidden", !isVisible)
+        // })
     })
 }
-inputFilter();*/
+inputFilter();
+
+//отображеине
+
+const col = document.querySelector('.tile-of-col'),
+        row = document.querySelector('.tile-of-row'),
+        productList = document.querySelector('.products-list'),
+        productCard = document.querySelectorAll('.product-card')
+
+col.addEventListener('click', () => {
+    productList.classList.add('products-list-column');
+    productCard.forEach((item) => item.classList.add('product-card-column'));
+    col.style.border='2px solid red';
+    row.style.border='';
+    console.log('fdfdf')
+});
+
+row.addEventListener('click', () => {
+    productList.classList.remove('products-list-column');
+    productCard.forEach((item) => item.classList.remove('product-card-column'));
+    row.style.border='2px solid red';
+    col.style.border='';
+    console.log('fdfdf')
+});

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/img/icons/icons8-sneakers-32.png" type="image/png">
     <link rel="stylesheet" href="./assets/styles/css/normalize.css">
     <link rel="stylesheet" href="./assets/styles/css/style.min.css">
     <title>Online shop of sport style wear</title>
@@ -22,17 +23,18 @@
     </div>
     <div class="menu">
       <ul class="nav">
-        <li class="nav-item"><a href="/">Main Page</li>
-        <li class="nav-item"><a href="../src/components/view/pages/cart/cart.html">Cart Page</li>
-        <li class="nav-item"><a href="../src/components/view/pages/404/404.html">404 Page</li>
+        <li class="nav-item"><a href="/index.html">Main Page</li>
+        <li class="nav-item"><a href="/components/view/pages/404/404.html">404 Page</li>
       </ul>
     </div>
     <div class="header-middle">
-      <span class="header-totall-price">TOTAL PRICE: 0 $</span>
+      <!--<h2 class="cart-total-title">TOTAL AMOUNT</h2>
+      <span class="header-totall-price">0 $</span>
+      <button class="removeAll">Clear Cart</button>-->
     </div>
     <div class="header-right">
       <div class="basket-icon-container">
-        <a href="#" class="basket-icon-link">
+        <a href="/components/view/pages/cart/cart.html" class="basket-icon-link">
           <img src="./assets/img/icons/basket-icon.png" class="basket-icon-img" alt="basket-icon.png">
           <div class="basket-circle"><span class="nmb-items">0</div>
           <span class="basket-txt">BASKET</span>
@@ -149,7 +151,15 @@
   
         <div class="products-container-header">
   
-          <button class="btn btn-sort">SORT BY</button>
+          <!-- <button class="btn btn-sort">SORT BY</button> -->
+
+          <select class="btn btn-sort" name="SORT BY"> <!--Supplement an id here instead of using 'name'-->
+            <option value="value0">SORT BY</option>
+            <option value="value1">sort by price ASC</option>
+            <option value="value2">sort by price DESC</option>
+            <option value="value3">sort by stock ASC</option>
+            <option value="value4">sort by stock DESC</option>
+          </select>
   
           <form class="search-form">
             <input type="search" id="search-input" placeholder="Search" data-search>
@@ -157,8 +167,8 @@
           </form>
   
           <div class="tile">
-            <div class="tile-of-3">4</div>
-            <div class="tile-of-6">6</div>
+            <div class="tile-of-3 tile-of-col">||</div>
+            <div class="tile-of-6 tile-of-row">=</div>
           </div>
   
         </div>
@@ -204,13 +214,13 @@
     <div class="gh">
 
       <div class="GH1">
-        <a class="footer-icon-link" target="_blank" href="#">
+        <a class="footer-icon-link" target="_blank" href="https://github.com/SHTAKET1032">
           <img class="logo-footer" src="./assets/img/icons/gh-dark.svg" alt="gh_logo.svg">
         </a>
       </div>
 
       <div class="GH2">
-        <a class="footer-icon-link" target="_blank" href="#">
+        <a class="footer-icon-link" target="_blank" href="https://github.com/milana-bilych">
           <img class="logo-footer" src="./assets/img/icons/gh-white.svg" alt="gh_logo.svg">
         </a>
       </div>
@@ -227,6 +237,6 @@
 
   </footer>
     <script src="./components/app/app.js" type="module"></script>
-
+    <script src="./components/view/pages/cart/cart.js" type="module"></script>
 </body>
 </html>

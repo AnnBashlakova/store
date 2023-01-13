@@ -1,4 +1,3 @@
-
 export default function Card(item) { 
     return ` <div class="product-card">
                 
@@ -26,5 +25,3 @@ export default function Card(item) {
 
     </div>`
 }
-
-
