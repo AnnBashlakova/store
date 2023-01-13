@@ -5,7 +5,6 @@ import {
 import Card from "../view/components/card.js";
 
 
-
 const productsContainer = document.querySelector('.products-list')
 const filterBtns = document.querySelectorAll('.list-item');
 const BtnReset = document.querySelector('.btn-reset')
