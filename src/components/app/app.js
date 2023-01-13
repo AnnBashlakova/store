@@ -2,7 +2,7 @@ import cards from "../../data.js";
 import {
     getQuery
 } from "../view/query.js";
-import Card from "../view/components/card.js";
+import AllCards from "../view/components/card.js";
 
 
 const productsContainer = document.querySelector('.products-list')
@@ -45,7 +45,9 @@ SortCard(cards);
 // }
 // SortCard();
 
-    productsContainer.innerHTML = (cards.map(item => Card(item))).join(""); //заполнение верстки карточками
+const allCards = new AllCards(cards)
+console.log(allCards)
+    productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join(""); //заполнение верстки карточками
 
 
 
