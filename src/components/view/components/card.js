@@ -9,7 +9,7 @@ export default class Card {
         this.stock =  item.stock;
     }
 
-    Card(item) {
+    сard() {
         return ` <div class="product-card">
                 
         <div class="product-top">

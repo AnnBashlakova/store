@@ -36,7 +36,7 @@ const allCards = new Card(cards)
     //     const card = new Card(item)}
     //     )).join(""); //заполнение верстки карточками
 
-        productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
+        productsContainer.innerHTML = (cards.map(item => allCards.сard(item))).join("");
 
 let Option;
 
