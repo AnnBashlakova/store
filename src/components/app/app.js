@@ -25,10 +25,10 @@ const productsContainer = document.querySelector('.products-list')
 
 
 
-productsContainer.innerHTML = (cards.map(item => {
-            const allCards = new Card(item);
-            return allCards.render()
-        })).join("")
+// productsContainer.innerHTML = (cards.map(item => {
+//             const allCards = new Card(item);
+//             return allCards.render()
+//         })).join("")
             
 
 
@@ -43,43 +43,40 @@ class App {
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-        this.Option = null;
-        this.SelectOption.addEventListener('change',  this.SortCard(cards))
+        this.option = this.SelectOption.value;
+        this.handlerCards = [...cards]
+        this.SelectOption.addEventListener('change',() => this.SortCard(this.handlerCards))
     }
-
+        
+        RenderCards(arr) {
+            productsContainer.innerHTML = null;
+            productsContainer.innerHTML = (arr.map(item => {
+                const allCards = new Card(item);
+                return allCards.render()
+            })).join("")
+        }
         SortCard(arr) {
             console.log(this.SelectOption)
-            Option = this.SelectOption.value
-            productsContainer.innerHTML = null;
-            if (Option == 'value1') {
-                let sortCards = arr.sort((a,b) =>a.price - b.price);
+            console.log( this.option)
+            // productsContainer.innerHTML = null;
+            let sortCards = []
+            if ( this.option == 'value1') {
+                sortCards = this.handlerCards.sort((a,b) =>a.price - b.price);
+                
+            } else if ( this.option == 'value2') {
+                sortCards =this.handlerCards.sort((a,b) =>b.price - a.price);
+                
+                
+            } else if ( this.option == 'value3') {
+                sortCards =this.handlerCards.sort((a,b) =>a.stock - b.stock);
     
-                productsContainer.innerHTML = (sortCards.map(item => {
-                    const allCards = new Card(item);
-                    return allCards.render()
-                })).join("")
-            } else if (Option == 'value2') {
-                let sortCards = arr.sort((a,b) =>b.price - a.price);
+               
+            } else if ( this.option == 'value4') {
+                sortCards = this.handlerCards.sort((a,b) =>b.stock - a.stock);
     
-                productsContainer.innerHTML = (sortCards.map(item => {
-                    const allCards = new Card(item);
-                    return allCards.render()
-                })).join("")
-            } else if (Option == 'value3') {
-                let sortCards = arr.sort((a,b) =>a.stock - b.stock);
-    
-                productsContainer.innerHTML = (sortCards.map(item => {
-                    const allCards = new Card(item);
-                    return allCards.render()
-                })).join("")
-            } else if (Option == 'value4') {
-                let sortCards = arr.sort((a,b) =>b.stock - a.stock);
-    
-                productsContainer.innerHTML = (sortCards.map(item => {
-                    const allCards = new Card(item);
-                    return allCards.render()
-                })).join("")
+               
             }
+            this.RenderCards(sortCards)
         }
     }
     
