@@ -17,61 +17,81 @@ import {
 import Card from "../view/components/card.js";
 
 const productsContainer = document.querySelector('.products-list')
-const filterBtns = document.querySelectorAll('.list-item');
-const BtnReset = document.querySelector('.btn-reset')
-const searchInput = document.getElementById('search-input');
-const SelectOption = document.querySelector('select')
+// const filterBtns = document.querySelectorAll('.list-item');
+// const BtnReset = document.querySelector('.btn-reset')
+// const searchInput = document.getElementById('search-input');
+// const SelectOption = document.querySelector('select')
 
 
-// class 
-
-const allCards = new Card(cards)
-
-    // productsContainer.innerHTML = (cards.map(item => {
-    //     const card = new Card(item)}
-    //     ).join(""); //заполнение верстки карточками
 
 
-    // productsContainer.innerHTML = (cards.map(item => {
-    //     const card = new Card(item)}
-    //     )).join(""); //заполнение верстки карточками
+productsContainer.innerHTML = (cards.map(item => {
+            const allCards = new Card(item);
+            return allCards.render()
+        })).join("")
+            
 
-        productsContainer.innerHTML = (cards.map(item => allCards.сard(item))).join("");
 
-let Option;
+// let Option;
 
-// class Sort {
 
-// }
 
-function SortCard(arr){
-    SelectOption.addEventListener('change', () => {
-        console.log(SelectOption.value)
-        Option = SelectOption.value
-        if (Option == 'value1') {
-            let sortCards = arr.sort((a,b) =>a.price - b.price);
+class App {
 
-            productsContainer.innerHTML = (sortCards.map(item =>Cards.Card(item))).join("");
-        } else if (Option == 'value2') {
-            let sortCards = arr.sort((a,b) =>b.price - a.price);
+    constructor() {
+        this.filterBtns = document.querySelectorAll('.list-item');
+        this.BtnReset = document.querySelector('.btn-reset')
+        this.searchInput = document.getElementById('search-input');
+        this.SelectOption = document.querySelector('select')
+        this.Option = null;
+        this.SelectOption.addEventListener('change',  this.SortCard(cards))
+    }
 
-            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
-        } else if (Option == 'value3') {
-            let sortCards = arr.sort((a,b) =>a.stock - b.stock);
-
-            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
-        } else if (Option == 'value4') {
-            let sortCards = arr.sort((a,b) =>b.stock - a.stock);
-
-            productsContainer.innerHTML = (sortCards.map(item => Cards.Card(item))).join("");
+        SortCard(arr) {
+            console.log(SelectOption.value)
+            Option = SelectOption.value
+            productsContainer.innerHTML = null;
+            if (Option == 'value1') {
+                let sortCards = arr.sort((a,b) =>a.price - b.price);
+    
+                productsContainer.innerHTML = (sortCards.map(item => {
+                    const allCards = new Card(item);
+                    return allCards.render()
+                })).join("")
+            } else if (Option == 'value2') {
+                let sortCards = arr.sort((a,b) =>b.price - a.price);
+    
+                productsContainer.innerHTML = (sortCards.map(item => {
+                    const allCards = new Card(item);
+                    return allCards.render()
+                })).join("")
+            } else if (Option == 'value3') {
+                let sortCards = arr.sort((a,b) =>a.stock - b.stock);
+    
+                productsContainer.innerHTML = (sortCards.map(item => {
+                    const allCards = new Card(item);
+                    return allCards.render()
+                })).join("")
+            } else if (Option == 'value4') {
+                let sortCards = arr.sort((a,b) =>b.stock - a.stock);
+    
+                productsContainer.innerHTML = (sortCards.map(item => {
+                    const allCards = new Card(item);
+                    return allCards.render()
+                })).join("")
+            }
         }
-    })
-}
+    }
+    
+
+
+
 
 // function SortCard(arr){
 //     SelectOption.addEventListener('change', () => {
 //         console.log(SelectOption.value)
 //         Option = SelectOption.value
+//         productsContainer.innerHTML = null;
 //         if (Option == 'value1') {
 //             let sortCards = arr.sort((a,b) =>a.price - b.price);
 
@@ -92,19 +112,7 @@ function SortCard(arr){
 //     })
 // }
 
-SortCard(cards);
-// function SortCard() {
-//     SelectOption.forEach(opt => opt.addEventListener('click', () => {
-//         console.log('fgggfg')
-//     }))
-// }
-// SortCard();
-
-// const allCards = new AllCards(cards)
-// console.log(allCards)
-//     productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join(""); //заполнение верстки карточками
-
-
+// SortCard(cards);
 
 let extraCards = [...cards];//копии массива с карточками товаров
 
@@ -298,6 +306,7 @@ BtnReset.addEventListener('click',function () {
 
 function inputFilter() {
     searchInput.addEventListener('input', (event) => {
+        productsContainer.innerHTML = null;
         const value = (event.target.value.trim()).toUpperCase();
         let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
         productsContainer.innerHTML = (FiltrCard.map(item => allCards.Card(item))).join("");
@@ -337,3 +346,7 @@ row.addEventListener('click', () => {
     col.style.border='';
 
 });
+
+
+
+export default App;

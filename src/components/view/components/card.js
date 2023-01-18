@@ -7,9 +7,10 @@ export default class Card {
         this.brand =  item.brand;
         this.price =  item.price;
         this.stock =  item.stock;
+
     }
 
-    сard() {
+    render() {
         return ` <div class="product-card">
                 
         <div class="product-top">
