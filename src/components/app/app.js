@@ -48,8 +48,8 @@ class App {
     }
 
         SortCard(arr) {
-            console.log(SelectOption.value)
-            Option = SelectOption.value
+            console.log(this.SelectOption)
+            Option = this.SelectOption.value
             productsContainer.innerHTML = null;
             if (Option == 'value1') {
                 let sortCards = arr.sort((a,b) =>a.price - b.price);
@@ -83,7 +83,7 @@ class App {
         }
     }
     
-
+    const app = new App()
 
 
 
@@ -164,7 +164,7 @@ function getNameFIlter() {
 
     };
 };
-getNameFIlter();
+// getNameFIlter();
 
 //фильтрация по категориям
 function NewFiltArr(arr1, params) {
@@ -280,24 +280,24 @@ const inputStockMax = document.querySelectorAll('.inputMaxValueStock')
 const inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
 const Progress = document.querySelectorAll('.progress')
 
-BtnReset.addEventListener('click',function () {
-    priceMin = 0;
-    priceMax = 1000;
-    stockMin = 0;
-    stockMax = 45;
-    Brand.length = 0;
-    Category.length = 0;
-    nameFilter.length = 0
-    inputStockMin.value = 0;
-    productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
-    filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
-    filterBtns.forEach(btn => btn.removeAttribute("disabled"));
-    inputStockMin.forEach(inp => inp.value = priceMin);
-    inputStockMax.forEach(inp => inp.value = stockMax);
-    inputPriceMax.forEach(inp => inp.value = priceMax);
-    Progress.forEach(progress => progress.style.right='0%')
+// BtnReset.addEventListener('click',function () {
+//     priceMin = 0;
+//     priceMax = 1000;
+//     stockMin = 0;
+//     stockMax = 45;
+//     Brand.length = 0;
+//     Category.length = 0;
+//     nameFilter.length = 0
+//     inputStockMin.value = 0;
+//     productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
+//     filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
+//     filterBtns.forEach(btn => btn.removeAttribute("disabled"));
+//     inputStockMin.forEach(inp => inp.value = priceMin);
+//     inputStockMax.forEach(inp => inp.value = stockMax);
+//     inputPriceMax.forEach(inp => inp.value = priceMax);
+//     Progress.forEach(progress => progress.style.right='0%')
 
-})
+// })
 
 
 
@@ -322,7 +322,7 @@ function inputFilter() {
         // })
     })
 }
-inputFilter();
+// inputFilter();
 
 //отображеине
 
