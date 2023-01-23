@@ -61,6 +61,7 @@ class App {
         this.getNameFIlter(cards, this.nameFilter)
         this.SelectOption.addEventListener('change',() => this.SortCard(this.sortCards))
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
+        this.inputFilter()
         // this.SortCard(cards)
 
         }
@@ -233,88 +234,28 @@ class App {
                     });
                 });
             }
-            // document.querySelectorAll(".element").forEach(n => slider(n)); //слушатель на два слайдера
 
+           inputFilter() {
+                this.searchInput.addEventListener('input', (event) => {
+                    const value = (event.target.value.trim()).toUpperCase();
+                    console.log(value)
+                    console.log(this.extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value)))
+                    let filtrCard = this.extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
+                    
+                    this.RenderCards(filtrCard)
+                    if (filtrCard.length == 0) {
+                        productsContainer.innerHTML = 'Nothing found';
+                    }
+                })
+            }
+
+           
     }
     
     const app = new App();
 
 
 
-
-// числовой фильтр
-// const priceInputs = document.querySelectorAll(".price-input input");
-
-// function getPriceVal(e,namb1,namb2) {
-//     if (e.target.dataset.filter =='price') {
-//         priceMin = namb1;
-//         priceMax = namb2;
-//     } else {
-//         stockMin = namb1;
-//         stockMax = namb2;
-//     }
-// }
-
-// const slider = (element) => {
-
-//     const slider = Boolean(element.classList) ? element : document.querySelector(selector);
-//     const rangeInput = slider.querySelectorAll(".range-input input");
-//     const priceInput = slider.querySelectorAll(".price-input input");
-//     const range = slider.querySelector(".slider .progress");
-
-//     let priceGap = 10;
-
-
-//     //слушатель на инпут
-//     priceInput.forEach(input => {
-//         input.addEventListener("input", e => {
-//             let minPrice = parseInt(priceInput[0].value),
-//             maxPrice = parseInt(priceInput[1].value);
-//             getPriceVal(e,minPrice, maxPrice);
-//             NewFiltArr(cards, nameFilter);
-//             changeUrl(Brand, Category);
-//             SortCard(extraCards)
-                
-//             if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
-//                 if (e.target.className === "input-min") {
-//                     rangeInput[0].value = minPrice;
-//                     range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-//                 } else {
-//                     rangeInput[1].value = maxPrice;
-//                     range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-//                 }
-//             }
-//         });
-//     });
-
-
-    //слушатель на ползунок
-//     rangeInput.forEach(input => {
-//         input.addEventListener("input", e => {
-            
-//             let minVal = parseInt(rangeInput[0].value),
-//                 maxVal = parseInt(rangeInput[1].value);
-//                 getPriceVal(e,minVal ,maxVal);
-//                 NewFiltArr(cards, nameFilter);
-//                 changeUrl(Brand, Category);
-//                 SortCard(extraCards)
-//             if ((maxVal - minVal) < priceGap) {
-//                 if (e.target.className === "range-min") {
-//                     rangeInput[0].value = maxVal - priceGap
-//                 } else {
-//                     rangeInput[1].value = minVal + priceGap;
-//                 }
-//             } else {
-//                 priceInput[0].value = minVal;
-//                 priceInput[1].value = maxVal;
-//                 range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-//                 range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-//             }
-//         });
-//     });
-// }
-
-// document.querySelectorAll(".element").forEach(n => slider(n)); //слушатель на два слайдера
 
 const inputStockMin = document.querySelectorAll('.inputMinValue')
 const inputStockMax = document.querySelectorAll('.inputMaxValueStock')
@@ -345,24 +286,24 @@ const Progress = document.querySelectorAll('.progress')
 //инпут сортировка
 
 
-function inputFilter() {
-    searchInput.addEventListener('input', (event) => {
-        productsContainer.innerHTML = null;
-        const value = (event.target.value.trim()).toUpperCase();
-        let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
-        productsContainer.innerHTML = (FiltrCard.map(item => allCards.Card(item))).join("");
-        if (FiltrCard.length == 0) {
-            productsContainer.innerHTML = 'Nothing found';
-        }
-        changeUrl(Brand, Category)
-        SortCard(FiltrCard)
-        // cards.forEach(card => {
-        //     const isVisible = card.brand.includes(value) || card.category.includes(value)
-        //     console.log(isVisible)
-        //     prodCard.classList.toggle("hidden", !isVisible)
-        // })
-    })
-}
+// function inputFilter() {
+//     searchInput.addEventListener('input', (event) => {
+//         productsContainer.innerHTML = null;
+//         const value = (event.target.value.trim()).toUpperCase();
+//         let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
+//         productsContainer.innerHTML = (FiltrCard.map(item => allCards.Card(item))).join("");
+//         if (FiltrCard.length == 0) {
+//             productsContainer.innerHTML = 'Nothing found';
+//         }
+//         changeUrl(Brand, Category)
+//         SortCard(FiltrCard)
+//         // cards.forEach(card => {
+//         //     const isVisible = card.brand.includes(value) || card.category.includes(value)
+//         //     console.log(isVisible)
+//         //     prodCard.classList.toggle("hidden", !isVisible)
+//         // })
+//     })
+// }
 // inputFilter();
 
 //отображеине
