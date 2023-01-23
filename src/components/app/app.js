@@ -58,6 +58,16 @@ class App {
         this.Progress = document.querySelectorAll('.progress')
         this.BtnReset.addEventListener('click', () => this.resetAll())
 
+        ////
+
+        this.col = document.querySelector('.tile-of-col'),
+        this.row = document.querySelector('.tile-of-row'),
+        this.productList = document.querySelector('.products-list'),
+        this.productCard = document.querySelectorAll('.product-card')
+
+        this.col.addEventListener('click', () => this.ColumnCard())
+        this.row.addEventListener('click', () => this.RowCard())
+
         }
         
         RenderCards(arr) {
@@ -276,34 +286,27 @@ class App {
                 
             }
 
+
+            ColumnCard() {
+                this.productList.classList.add('products-list-column');
+                this.productCard.forEach((item) => item.classList.add('product-card-column'));
+                this.col.style.border='2px solid red';
+                this.row.style.border='';
+            }
+
+
+            RowCard() {
+                this.productList.classList.remove('products-list-column');
+                this.productCard.forEach((item) => item.classList.remove('product-card-column'));
+                this.row.style.border='2px solid red';
+                this.col.style.border='';
+            }
+
     }
     
     const app = new App();
 
 
-
-//отображеине
-
-const col = document.querySelector('.tile-of-col'),
-        row = document.querySelector('.tile-of-row'),
-        productList = document.querySelector('.products-list'),
-        productCard = document.querySelectorAll('.product-card')
-
-col.addEventListener('click', () => {
-    productList.classList.add('products-list-column');
-    productCard.forEach((item) => item.classList.add('product-card-column'));
-    col.style.border='2px solid red';
-    row.style.border='';
-
-});
-
-row.addEventListener('click', () => {
-    productList.classList.remove('products-list-column');
-    productCard.forEach((item) => item.classList.remove('product-card-column'));
-    row.style.border='2px solid red';
-    col.style.border='';
-
-});
 
 
 
