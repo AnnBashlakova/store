@@ -47,6 +47,7 @@ class App {
         this.handlerCards = [...cards]
         this.SelectOption.addEventListener('change',() => this.SortCard(this.handlerCards))
         this.RenderCards(cards)
+        
         this.extraCards = [...cards];//копии массива с карточками товаров
         ////////
         this.priceMin = '0';
@@ -57,6 +58,8 @@ class App {
         this.Brand = [];
         this.Category = [];
         this.nameFilter = [];
+        // this.NewFiltArr(cards, this.nameFilter);
+        this.getNameFIlter(cards, this.nameFilter)
 
         }
         
@@ -107,9 +110,9 @@ class App {
             window.history.pushState({}, '', url.href); 
             }
 
-            getNameFIlter() {
-                for (let btn of filterBtns) {
-                    this.btn.addEventListener('click', () => {
+            getNameFIlter(arr, arr2) {
+                for (let btn of this.filterBtns) {
+                    btn.addEventListener('click', () => {
                         console.log('fgfgf')
                         btn.toggleAttribute("disabled")
                         btn.classList.toggle('list-item-active')
@@ -120,12 +123,13 @@ class App {
                         } else {
                             Brand.push(name);
                         }
-                        this.NewFiltArr(cards, this.nameFilter);
+                        
                         this.changeUrl(this.Brand, this.Category);
                     });
             
                 };
             };
+            
 
 
     }
