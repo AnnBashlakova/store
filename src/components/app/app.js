@@ -60,6 +60,8 @@ class App {
         this.nameFilter = [];
         this.getNameFIlter(cards, this.nameFilter)
 
+        document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
+
         }
         
         RenderCards(arr) {
@@ -135,7 +137,7 @@ class App {
 
                 if (this.Brand.length == 0 && this.Category.length == 0 ) {
                     
-                    this.extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
+                    this.extraCards = arr1.filter(item =>item.price >= this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax)
             
                     if (this.extraCards.length == 0) {
                         productsContainer.innerHTML = 'Nothing found';
@@ -166,15 +168,16 @@ class App {
 
             getPriceVal(e,namb1,namb2) {
                 if (e.target.dataset.filter =='price') {
-                    priceMin = namb1;
-                    priceMax = namb2;
+                    this.priceMin = namb1;
+                    this.priceMax = namb2;
                 } else {
-                    stockMin = namb1;
-                    stockMax = namb2;
+                    this.stockMin = namb1;
+                    this.stockMax = namb2;
                 }
             }
             
-            slider = (element) => {
+            slider (element) {
+                console.log('gggggggg')
             
                 const slider = Boolean(element.classList) ? element : document.querySelector(selector);
                 const rangeInput = slider.querySelectorAll(".range-input input");
@@ -189,10 +192,10 @@ class App {
                     input.addEventListener("input", e => {
                         let minPrice = parseInt(priceInput[0].value);
                         let maxPrice = parseInt(priceInput[1].value);
-                        getPriceVal(e,minPrice, this.maxPrice);
-                        NewFiltArr(cards, this.nameFilter);
-                        changeUrl(this.Brand, this.Category);
-                        SortCard(this.extraCards)
+                        this.getPriceVal(e,minPrice, this.maxPrice);
+                        this.NewFiltArr(cards, this.nameFilter);
+                        this.changeUrl(this.Brand, this.Category);
+                        this.SortCard(this.extraCards)
                             
                         if ((maxPrice - this.minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
                             if (e.target.className === "input-min") {
@@ -210,10 +213,10 @@ class App {
                         
                         let minVal = parseInt(rangeInput[0].value),
                             maxVal = parseInt(rangeInput[1].value);
-                            getPriceVal(e,minVal ,maxVal);
-                            NewFiltArr(cards, nameFilter);
-                            changeUrl(Brand, Category);
-                            SortCard(extraCards)
+                            this.getPriceVal(e,minVal ,maxVal);
+                            this.NewFiltArr(cards, this.nameFilter);
+                            this.changeUrl(this.Brand, this.Category);
+                            this.SortCard(this.extraCards)
                         if ((maxVal - minVal) < priceGap) {
                             if (e.target.className === "range-min") {
                                 rangeInput[0].value = maxVal - priceGap
