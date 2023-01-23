@@ -164,7 +164,7 @@ class App {
                     }
                 };
                 this.RenderCards(this.extraCards)
-                this.SortCard(this.extraCards)
+                // this.SortCard(this.extraCards)
                 // this.SortCard(this.cards)
                 
                 
