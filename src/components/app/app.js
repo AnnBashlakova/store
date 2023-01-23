@@ -44,8 +44,8 @@ class App {
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
         // this.option = this.SelectOption.value;
-        this.handlerCards = [...cards]
-        this.SelectOption.addEventListener('change',() => this.SortCard(this.handlerCards))
+        // this.handlerCards = [...cards]
+        
         this.RenderCards(cards)
         
         this.extraCards = [...cards];//копии массива с карточками товаров
@@ -54,13 +54,14 @@ class App {
         this.priceMax = '1000';
         this.stockMin = '0';
         this.stockMax = '45';
-
+        this.sortCards = [...cards];
         this.Brand = [];
         this.Category = [];
         this.nameFilter = [];
         this.getNameFIlter(cards, this.nameFilter)
-
+        this.SelectOption.addEventListener('change',() => this.SortCard(this.sortCards))
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
+        // this.SortCard(cards)
 
         }
         
@@ -77,26 +78,28 @@ class App {
             console.log( this.option)
             this.option = this.SelectOption.value;
             // productsContainer.innerHTML = null;
-            let sortCards = [];
+            
             if ( this.option == 'value1') {
-                sortCards = this.handlerCards.sort((a,b) =>a.price - b.price);
+                this.sortCards = this.extraCards.sort((a,b) =>a.price - b.price);
                 
             } else if ( this.option == 'value2') {
-                sortCards = this.handlerCards.sort((a,b) =>b.price - a.price);
+                this.sortCards = this.extraCards.sort((a,b) =>b.price - a.price);
                 
                 
             } else if ( this.option == 'value3') {
-                sortCards = this.handlerCards.sort((a,b) =>a.stock - b.stock);
+                this.sortCards = this.extraCards.sort((a,b) =>a.stock - b.stock);
     
             
             } else if ( this.option == 'value4') {
-                sortCards = this.handlerCards.sort((a,b) =>b.stock - a.stock);
+                this.sortCards = this.extraCards.sort((a,b) =>b.stock - a.stock);
     
 
             }
-            this.RenderCards(sortCards)
+            this.RenderCards(this.sortCards)
+
         }
         
+
         changeUrl (arrBrand, arrCategory) {
             let url = new URL(window.location)
             // let params = new URLSearchParams(url.search)
@@ -127,6 +130,7 @@ class App {
                     
                         this.NewFiltArr(cards, this.nameFilter)
                         this.changeUrl(this.Brand, this.Category);
+                        // this.SortCard(cards)
                     });
             
                 };
@@ -159,9 +163,10 @@ class App {
                         productsContainer.innerHTML = 'Nothing found';
                     }
                 };
-                this.SortCard(this.extraCards)
-
                 this.RenderCards(this.extraCards)
+                this.SortCard(this.extraCards)
+                // this.SortCard(this.cards)
+                
                 
             };
 
@@ -192,7 +197,7 @@ class App {
                     input.addEventListener("input", e => {
                         let minPrice = parseInt(priceInput[0].value);
                         let maxPrice = parseInt(priceInput[1].value);
-                        this.getPriceVal(e,minPrice, this.maxPrice);
+                        this.getPriceVal(e,minPrice, maxPrice);
                         this.NewFiltArr(cards, this.nameFilter);
                         this.changeUrl(this.Brand, this.Category);
                         this.SortCard(this.extraCards)
