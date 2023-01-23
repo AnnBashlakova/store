@@ -51,11 +51,17 @@ class App {
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         this.inputFilter()
         // this.SortCard(cards)
+        ////
+        this.inputStockMin = document.querySelectorAll('.inputMinValue')
+        this.inputStockMax = document.querySelectorAll('.inputMaxValueStock')
+        this.inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
+        this.Progress = document.querySelectorAll('.progress')
+        this.BtnReset.addEventListener('click', () => this.resetAll())
 
         }
         
         RenderCards(arr) {
-            // productsContainer.innerHTML = null;
+            productsContainer.innerHTML = null;
             productsContainer.innerHTML = (arr.map(item => {
                 const allCards = new Card(item);
                 return allCards.render()
@@ -235,7 +241,7 @@ class App {
                 });
             }
 
-           inputFilter() {
+            inputFilter() {
                 this.searchInput.addEventListener('input', (event) => {
                     const value = (event.target.value.trim()).toUpperCase();
                     console.log(value)
@@ -249,62 +255,32 @@ class App {
                 })
             }
 
-           
+            resetAll() {
+                    this.priceMin = 0;
+                    this.priceMax = 1000;
+                    this.stockMin = 0;
+                    this.stockMax = 45;
+                    this.Brand.length = 0;
+                    this.Category.length = 0;
+                    this.nameFilter.length = 0
+                    this.inputStockMin.value = 0;
+                    
+                    this.filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
+                    this.filterBtns.forEach(btn => btn.removeAttribute("disabled"));
+                    this.inputStockMin.forEach(inp => inp.value = this.priceMin);
+                    this.inputStockMax.forEach(inp => inp.value = this.stockMax);
+                    this.inputPriceMax.forEach(inp => inp.value = this.priceMax);
+                    this.Progress.forEach(progress => progress.style.right='0%')
+                    this.Progress.forEach(progress => progress.style.left='0%')
+                    this.RenderCards(cards)
+                
+            }
+
     }
     
     const app = new App();
 
 
-
-
-const inputStockMin = document.querySelectorAll('.inputMinValue')
-const inputStockMax = document.querySelectorAll('.inputMaxValueStock')
-const inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
-const Progress = document.querySelectorAll('.progress')
-
-// BtnReset.addEventListener('click',function () {
-//     priceMin = 0;
-//     priceMax = 1000;
-//     stockMin = 0;
-//     stockMax = 45;
-//     Brand.length = 0;
-//     Category.length = 0;
-//     nameFilter.length = 0
-//     inputStockMin.value = 0;
-//     productsContainer.innerHTML = (cards.map(item => allCards.Card(item))).join("");
-//     filterBtns.forEach(btn => btn.classList.remove('list-item-active'));
-//     filterBtns.forEach(btn => btn.removeAttribute("disabled"));
-//     inputStockMin.forEach(inp => inp.value = priceMin);
-//     inputStockMax.forEach(inp => inp.value = stockMax);
-//     inputPriceMax.forEach(inp => inp.value = priceMax);
-//     Progress.forEach(progress => progress.style.right='0%')
-
-// })
-
-
-
-//инпут сортировка
-
-
-// function inputFilter() {
-//     searchInput.addEventListener('input', (event) => {
-//         productsContainer.innerHTML = null;
-//         const value = (event.target.value.trim()).toUpperCase();
-//         let FiltrCard = extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
-//         productsContainer.innerHTML = (FiltrCard.map(item => allCards.Card(item))).join("");
-//         if (FiltrCard.length == 0) {
-//             productsContainer.innerHTML = 'Nothing found';
-//         }
-//         changeUrl(Brand, Category)
-//         SortCard(FiltrCard)
-//         // cards.forEach(card => {
-//         //     const isVisible = card.brand.includes(value) || card.category.includes(value)
-//         //     console.log(isVisible)
-//         //     prodCard.classList.toggle("hidden", !isVisible)
-//         // })
-//     })
-// }
-// inputFilter();
 
 //отображеине
 
