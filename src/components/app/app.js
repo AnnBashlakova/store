@@ -66,7 +66,7 @@ class App {
         }
         
         RenderCards(arr) {
-            productsContainer.innerHTML = null;
+            // productsContainer.innerHTML = null;
             productsContainer.innerHTML = (arr.map(item => {
                 const allCards = new Card(item);
                 return allCards.render()
@@ -143,30 +143,27 @@ class App {
                     
                     this.extraCards = arr1.filter(item =>item.price >= this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax)
             
-                    if (this.extraCards.length == 0) {
-                        productsContainer.innerHTML = 'Nothing found';
-                    }
             
                 }
                 else if (this.Brand.length == 0 || this.Category.length == 0) {
                     // console.log(searchInput.value.length)
                     this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  ||  params.includes(item.category))
             
-                    if (this.extraCards.length == 0) {
-                        productsContainer.innerHTML = 'Nothing found';
-                    }
+
             
                 } else  {
                     this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  &&  params.includes(item.category))
                 
-                    if (extraCards.length == 0) {
+                    if (this.extraCards.length == 0) {
                         productsContainer.innerHTML = 'Nothing found';
                     }
                 };
+
                 this.RenderCards(this.extraCards)
-                // this.SortCard(this.extraCards)
-                // this.SortCard(this.cards)
-                
+
+                if (this.extraCards.length == 0) {
+                    productsContainer.innerHTML = 'Nothing found';
+                }
                 
             };
 
@@ -182,7 +179,6 @@ class App {
             }
             
             slider (element) {
-                console.log('gggggggg')
             
                 const slider = Boolean(element.classList) ? element : document.querySelector(selector);
                 const rangeInput = slider.querySelectorAll(".range-input input");
