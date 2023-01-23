@@ -58,7 +58,6 @@ class App {
         this.Brand = [];
         this.Category = [];
         this.nameFilter = [];
-        // this.NewFiltArr(cards, this.nameFilter);
         this.getNameFIlter(cards, this.nameFilter)
 
         }
@@ -70,6 +69,7 @@ class App {
                 return allCards.render()
             })).join("")
         }
+
         SortCard(arr) {
             console.log(this.SelectOption)
             console.log( this.option)
@@ -124,13 +124,47 @@ class App {
                         } else {
                             this.Brand.push(name);
                         }
-                        
+                    
+                        this.NewFiltArr(cards, this.nameFilter)
                         this.changeUrl(this.Brand, this.Category);
                     });
             
                 };
             };
             
+
+                NewFiltArr(arr1, params) {
+
+                console.log('gggggg')
+                if (this.Brand.length == 0 && this.Category.length == 0 ) {
+                    
+                    this.extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
+                 
+                    if (this.extraCards.length == 0) {
+                        productsContainer.innerHTML = 'Nothing found';
+                    }
+            
+                }
+                else if (this.Brand.length == 0 || this.Category.length == 0) {
+                    console.log(searchInput.value.length)
+                    extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
+                 
+                    if (extraCards.length == 0) {
+                        productsContainer.innerHTML = 'Nothing found';
+                    }
+            
+                } else  {
+                    extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
+                
+                    if (extraCards.length == 0) {
+                        productsContainer.innerHTML = 'Nothing found';
+                    }
+                };
+                this.SortCard(extraCards)
+
+                this.RenderCards(extraCards)
+                
+            };
 
 
     }
@@ -219,36 +253,36 @@ class App {
 // getNameFIlter();
 
 //фильтрация по категориям
-function NewFiltArr(arr1, params) {
-    productsContainer.innerHTML = null;
+// function NewFiltArr(arr1, params) {
+//     productsContainer.innerHTML = null;
 
-    if (Brand.length == 0 && Category.length == 0 ) {
+//     if (Brand.length == 0 && Category.length == 0 ) {
         
-        extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
-        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
-        if (extraCards.length == 0) {
-            productsContainer.innerHTML = 'Nothing found';
-        }
+//         extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
+//         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+//         if (extraCards.length == 0) {
+//             productsContainer.innerHTML = 'Nothing found';
+//         }
 
-    }
-    else if (Brand.length == 0 || Category.length == 0) {
-        console.log(searchInput.value.length)
-        extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
-        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
-        if (extraCards.length == 0) {
-            productsContainer.innerHTML = 'Nothing found';
-        }
+//     }
+//     else if (Brand.length == 0 || Category.length == 0) {
+//         console.log(searchInput.value.length)
+//         extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
+//         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+//         if (extraCards.length == 0) {
+//             productsContainer.innerHTML = 'Nothing found';
+//         }
 
-    } else  {
-        extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
-        productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
-        if (extraCards.length == 0) {
-            productsContainer.innerHTML = 'Nothing found';
-        }
-    };
-    SortCard(extraCards)
+//     } else  {
+//         extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
+//         productsContainer.innerHTML = (extraCards.map(item => Card(item))).join("");
+//         if (extraCards.length == 0) {
+//             productsContainer.innerHTML = 'Nothing found';
+//         }
+//     };
+//     SortCard(extraCards)
     
-};
+// };
 
 
 
