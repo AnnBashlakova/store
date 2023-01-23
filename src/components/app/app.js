@@ -1,15 +1,3 @@
-// import AppController from '../controller/controller';
-// export default class App {
-//   controller: AppController;
-
-//   constructor() {
-//     this.controller = new AppController();
-//   }
-
-// }
-
-
-
 import cards from "../../data.js";
 import {
     getQuery
@@ -195,10 +183,14 @@ class App {
                         let minPrice = parseInt(priceInput[0].value);
                         let maxPrice = parseInt(priceInput[1].value);
                         this.getPriceVal(e,minPrice, maxPrice);
-                        this.NewFiltArr(cards, this.nameFilter);
+                        this.NewFiltArr(this.extraCards, this.nameFilter);
                         this.changeUrl(this.Brand, this.Category);
                         this.SortCard(this.extraCards)
-                            
+                        this.RenderCards(this.extraCards)
+                        if (this.extraCards.length == 0) {
+                            productsContainer.innerHTML = 'Nothing found';
+                        }
+                        
                         if ((maxPrice - this.minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
                             if (e.target.className === "input-min") {
                                 rangeInput[0].value = minPrice;
@@ -208,6 +200,9 @@ class App {
                                 range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
                             }
                         }
+                        if (this.extraCards.length == 0) {
+                            productsContainer.innerHTML = 'Nothing found';
+                        }
                     });
                 });
                 rangeInput.forEach(input => {
@@ -216,9 +211,14 @@ class App {
                         let minVal = parseInt(rangeInput[0].value),
                             maxVal = parseInt(rangeInput[1].value);
                             this.getPriceVal(e,minVal ,maxVal);
-                            this.NewFiltArr(cards, this.nameFilter);
+                            this.NewFiltArr(this.extraCards, this.nameFilter);
                             this.changeUrl(this.Brand, this.Category);
                             this.SortCard(this.extraCards)
+                            console.log(this.extraCards)
+                            this.RenderCards(this.extraCards)
+                            if (this.extraCards.length == 0) {
+                                productsContainer.innerHTML = 'Nothing found';
+                            }
                         if ((maxVal - minVal) < priceGap) {
                             if (e.target.className === "range-min") {
                                 rangeInput[0].value = maxVal - priceGap
