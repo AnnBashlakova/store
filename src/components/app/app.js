@@ -43,10 +43,22 @@ class App {
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-        this.option = this.SelectOption.value;
+        // this.option = this.SelectOption.value;
         this.handlerCards = [...cards]
         this.SelectOption.addEventListener('change',() => this.SortCard(this.handlerCards))
-    }
+        this.RenderCards(cards)
+        this.extraCards = [...cards];//копии массива с карточками товаров
+        ////////
+        this.priceMin = '0';
+        this.priceMax = '1000';
+        this.stockMin = '0';
+        this.stockMax = '45';
+
+        this.Brand = [];
+        this.Category = [];
+        this.nameFilter = [];
+
+        }
         
         RenderCards(arr) {
             productsContainer.innerHTML = null;
@@ -58,26 +70,64 @@ class App {
         SortCard(arr) {
             console.log(this.SelectOption)
             console.log( this.option)
+            this.option = this.SelectOption.value;
             // productsContainer.innerHTML = null;
-            let sortCards = []
+            let sortCards = [];
             if ( this.option == 'value1') {
                 sortCards = this.handlerCards.sort((a,b) =>a.price - b.price);
                 
             } else if ( this.option == 'value2') {
-                sortCards =this.handlerCards.sort((a,b) =>b.price - a.price);
+                sortCards = this.handlerCards.sort((a,b) =>b.price - a.price);
                 
                 
             } else if ( this.option == 'value3') {
-                sortCards =this.handlerCards.sort((a,b) =>a.stock - b.stock);
+                sortCards = this.handlerCards.sort((a,b) =>a.stock - b.stock);
     
-               
+            
             } else if ( this.option == 'value4') {
                 sortCards = this.handlerCards.sort((a,b) =>b.stock - a.stock);
     
-               
+
             }
             this.RenderCards(sortCards)
         }
+        
+        changeUrl (arrBrand, arrCategory) {
+            let url = new URL(window.location)
+            // let params = new URLSearchParams(url.search)
+            let strNamefilterBrand = this.arrBrand.join('%')
+            let strNamefilterCategory = this.arrCategory.join('%')
+            strNamefilterBrand && url.searchParams.set('brand' , strNamefilterBrand);
+            strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
+            url.searchParams.set('price' , `${this.priceMin}to${this.priceMax}`);
+            url.searchParams.set('stock' , `${this.stockMin}to${this.stockMax}`);
+            url.searchParams.set('search' , this.searchInput.value );
+            console.log(url)
+            // window.location = url;
+            window.history.pushState({}, '', url.href); 
+            }
+
+            getNameFIlter() {
+                for (let btn of filterBtns) {
+                    this.btn.addEventListener('click', () => {
+                        console.log('fgfgf')
+                        btn.toggleAttribute("disabled")
+                        btn.classList.toggle('list-item-active')
+                        let name = this.event.target.textContent;
+                        nameFilter.push(name)
+                        if (this.event.target.dataset.filter == 'category') {
+                            Category.push(name);
+                        } else {
+                            Brand.push(name);
+                        }
+                        this.NewFiltArr(cards, this.nameFilter);
+                        this.changeUrl(this.Brand, this.Category);
+                    });
+            
+                };
+            };
+
+
     }
     
     const app = new App()
@@ -111,56 +161,56 @@ class App {
 
 // SortCard(cards);
 
-let extraCards = [...cards];//копии массива с карточками товаров
+// let extraCards = [...cards];//копии массива с карточками товаров
 
 
 
-let priceMin = '0';
-let priceMax = '1000';
+// let priceMin = '0';
+// let priceMax = '1000';
 
-let stockMin = '0';
-let stockMax = '45';
+// let stockMin = '0';
+// let stockMax = '45';
 
-let Brand = [];
-let Category = [];
-let nameFilter = [];
+// let Brand = [];
+// let Category = [];
+// let nameFilter = [];
 
 
-function changeUrl (arrBrand, arrCategory) {
-    let url = new URL(window.location)
-    // let params = new URLSearchParams(url.search)
-    let strNamefilterBrand = arrBrand.join('%')
-    let strNamefilterCategory = arrCategory.join('%')
-    strNamefilterBrand && url.searchParams.set('brand' , strNamefilterBrand);
-    strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
-    url.searchParams.set('price' , `${priceMin}to${priceMax}`);
-    url.searchParams.set('stock' , `${stockMin}to${stockMax}`);
-    url.searchParams.set('search' , searchInput.value );
-    console.log(url)
-    // window.location = url;
-    window.history.pushState({}, '', url.href); 
-}
+// function changeUrl (arrBrand, arrCategory) {
+//     let url = new URL(window.location)
+//     // let params = new URLSearchParams(url.search)
+//     let strNamefilterBrand = arrBrand.join('%')
+//     let strNamefilterCategory = arrCategory.join('%')
+//     strNamefilterBrand && url.searchParams.set('brand' , strNamefilterBrand);
+//     strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
+//     url.searchParams.set('price' , `${priceMin}to${priceMax}`);
+//     url.searchParams.set('stock' , `${stockMin}to${stockMax}`);
+//     url.searchParams.set('search' , searchInput.value );
+//     console.log(url)
+//     // window.location = url;
+//     window.history.pushState({}, '', url.href); 
+// }
 
 
 //массив с параметрами фильтра-> при клике, фильтрация карточек, по параметрам из массива
-function getNameFIlter() {
-    for (let btn of filterBtns) {
-        btn.addEventListener('click', (event) => {
-            btn.toggleAttribute("disabled")
-            btn.classList.toggle('list-item-active')
-            let name = event.target.textContent;
-            nameFilter.push(name)
-            if (event.target.dataset.filter == 'category') {
-                Category.push(name);
-            } else {
-                Brand.push(name);
-            }
-            NewFiltArr(cards, nameFilter);
-            changeUrl(Brand, Category);
-        });
+// function getNameFIlter() {
+//     for (let btn of filterBtns) {
+//         btn.addEventListener('click', (event) => {
+//             btn.toggleAttribute("disabled")
+//             btn.classList.toggle('list-item-active')
+//             let name = event.target.textContent;
+//             nameFilter.push(name)
+//             if (event.target.dataset.filter == 'category') {
+//                 Category.push(name);
+//             } else {
+//                 Brand.push(name);
+//             }
+//             NewFiltArr(cards, nameFilter);
+//             changeUrl(Brand, Category);
+//         });
 
-    };
-};
+//     };
+// };
 // getNameFIlter();
 
 //фильтрация по категориям

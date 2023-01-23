@@ -12,7 +12,6 @@ export default class Card {
 
     render() {
         return ` <div class="product-card">
-                
         <div class="product-top">
             <span class="product-name">${this.model}</span>
         </div>
