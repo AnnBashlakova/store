@@ -98,8 +98,8 @@ class App {
         changeUrl (arrBrand, arrCategory) {
             let url = new URL(window.location)
             // let params = new URLSearchParams(url.search)
-            let strNamefilterBrand = this.arrBrand.join('%')
-            let strNamefilterCategory = this.arrCategory.join('%')
+            let strNamefilterBrand = this.Brand.join('%')
+            let strNamefilterCategory = this.Category.join('%')
             strNamefilterBrand && url.searchParams.set('brand' , strNamefilterBrand);
             strNamefilterCategory && url.searchParams.set('category' , strNamefilterCategory);
             url.searchParams.set('price' , `${this.priceMin}to${this.priceMax}`);
@@ -112,16 +112,17 @@ class App {
 
             getNameFIlter(arr, arr2) {
                 for (let btn of this.filterBtns) {
-                    btn.addEventListener('click', () => {
+                    btn.addEventListener('click', (event) => {
                         console.log('fgfgf')
                         btn.toggleAttribute("disabled")
                         btn.classList.toggle('list-item-active')
-                        let name = this.event.target.textContent;
-                        nameFilter.push(name)
-                        if (this.event.target.dataset.filter == 'category') {
-                            Category.push(name);
+                        console.log(btn.dataset.filter)
+                        let name = btn.textContent;
+                        this.nameFilter.push(name)
+                        if (btn.dataset.filter == 'category') {
+                            this.Category.push(name);
                         } else {
-                            Brand.push(name);
+                            this.Brand.push(name);
                         }
                         
                         this.changeUrl(this.Brand, this.Category);
