@@ -113,10 +113,8 @@ class App {
             getNameFIlter(arr, arr2) {
                 for (let btn of this.filterBtns) {
                     btn.addEventListener('click', (event) => {
-                        console.log('fgfgf')
                         btn.toggleAttribute("disabled")
                         btn.classList.toggle('list-item-active')
-                        console.log(btn.dataset.filter)
                         let name = btn.textContent;
                         this.nameFilter.push(name)
                         if (btn.dataset.filter == 'category') {
@@ -135,34 +133,33 @@ class App {
 
                 NewFiltArr(arr1, params) {
 
-                console.log('gggggg')
                 if (this.Brand.length == 0 && this.Category.length == 0 ) {
                     
                     this.extraCards = arr1.filter(item =>item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax)
-                 
+            
                     if (this.extraCards.length == 0) {
                         productsContainer.innerHTML = 'Nothing found';
                     }
             
                 }
                 else if (this.Brand.length == 0 || this.Category.length == 0) {
-                    console.log(searchInput.value.length)
-                    extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  ||  params.includes(item.category))
-                 
-                    if (extraCards.length == 0) {
+                    // console.log(searchInput.value.length)
+                    this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  ||  params.includes(item.category))
+            
+                    if (this.extraCards.length == 0) {
                         productsContainer.innerHTML = 'Nothing found';
                     }
             
                 } else  {
-                    extraCards = arr1.filter(item => item.price >= priceMin && item.price <= priceMax && item.stock >= stockMin && item.stock <= stockMax && params.includes(item.brand)  &&  params.includes(item.category))
+                    this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  &&  params.includes(item.category))
                 
                     if (extraCards.length == 0) {
                         productsContainer.innerHTML = 'Nothing found';
                     }
                 };
-                this.SortCard(extraCards)
+                this.SortCard(this.extraCards)
 
-                this.RenderCards(extraCards)
+                this.RenderCards(this.extraCards)
                 
             };
 
