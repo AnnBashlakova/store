@@ -164,9 +164,51 @@ class App {
             };
 
 
+            getPriceVal(e,namb1,namb2) {
+                if (e.target.dataset.filter =='price') {
+                    priceMin = namb1;
+                    priceMax = namb2;
+                } else {
+                    stockMin = namb1;
+                    stockMax = namb2;
+                }
+            }
+            
+            slider = (element) => {
+            
+                const slider = Boolean(element.classList) ? element : document.querySelector(selector);
+                const rangeInput = slider.querySelectorAll(".range-input input");
+                const priceInput = slider.querySelectorAll(".price-input input");
+                const range = slider.querySelector(".slider .progress");
+            
+                let priceGap = 10;
+            
+            
+                //слушатель на инпут
+                priceInput.forEach(input => {
+                    input.addEventListener("input", e => {
+                        let minPrice = parseInt(priceInput[0].value);
+                        let maxPrice = parseInt(priceInput[1].value);
+                        getPriceVal(e,minPrice, this.maxPrice);
+                        NewFiltArr(cards, this.nameFilter);
+                        changeUrl(this.Brand, this.Category);
+                        SortCard(this.extraCards)
+                            
+                        if ((maxPrice - this.minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                            if (e.target.className === "input-min") {
+                                rangeInput[0].value = minPrice;
+                                range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                            } else {
+                                rangeInput[1].value = maxPrice;
+                                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                            }
+                        }
+                    });
+                });
+
     }
     
-    const app = new App()
+    const app = new App();
 
 
 
@@ -174,47 +216,47 @@ class App {
 // числовой фильтр
 // const priceInputs = document.querySelectorAll(".price-input input");
 
-function getPriceVal(e,namb1,namb2) {
-    if (e.target.dataset.filter =='price') {
-        priceMin = namb1;
-        priceMax = namb2;
-    } else {
-        stockMin = namb1;
-        stockMax = namb2;
-    }
-}
+// function getPriceVal(e,namb1,namb2) {
+//     if (e.target.dataset.filter =='price') {
+//         priceMin = namb1;
+//         priceMax = namb2;
+//     } else {
+//         stockMin = namb1;
+//         stockMax = namb2;
+//     }
+// }
 
-const slider = (element) => {
+// const slider = (element) => {
 
-    const slider = Boolean(element.classList) ? element : document.querySelector(selector);
-    const rangeInput = slider.querySelectorAll(".range-input input");
-    const priceInput = slider.querySelectorAll(".price-input input");
-    const range = slider.querySelector(".slider .progress");
+//     const slider = Boolean(element.classList) ? element : document.querySelector(selector);
+//     const rangeInput = slider.querySelectorAll(".range-input input");
+//     const priceInput = slider.querySelectorAll(".price-input input");
+//     const range = slider.querySelector(".slider .progress");
 
-    let priceGap = 10;
+//     let priceGap = 10;
 
 
-    //слушатель на инпут
-    priceInput.forEach(input => {
-        input.addEventListener("input", e => {
-            let minPrice = parseInt(priceInput[0].value),
-            maxPrice = parseInt(priceInput[1].value);
-            getPriceVal(e,minPrice, maxPrice);
-            NewFiltArr(cards, nameFilter);
-            changeUrl(Brand, Category);
-            SortCard(extraCards)
+//     //слушатель на инпут
+//     priceInput.forEach(input => {
+//         input.addEventListener("input", e => {
+//             let minPrice = parseInt(priceInput[0].value),
+//             maxPrice = parseInt(priceInput[1].value);
+//             getPriceVal(e,minPrice, maxPrice);
+//             NewFiltArr(cards, nameFilter);
+//             changeUrl(Brand, Category);
+//             SortCard(extraCards)
                 
-            if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
-                if (e.target.className === "input-min") {
-                    rangeInput[0].value = minPrice;
-                    range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-                } else {
-                    rangeInput[1].value = maxPrice;
-                    range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-                }
-            }
-        });
-    });
+//             if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+//                 if (e.target.className === "input-min") {
+//                     rangeInput[0].value = minPrice;
+//                     range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+//                 } else {
+//                     rangeInput[1].value = maxPrice;
+//                     range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+//                 }
+//             }
+//         });
+//     });
 
 
     //слушатель на ползунок
