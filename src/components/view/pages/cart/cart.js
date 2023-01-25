@@ -3,11 +3,8 @@ import cards from "../../../../data.js";
 class Cart {
     constructor () {
         this.add = document.querySelectorAll('.btn-add');
-        this.openModalButtons = document.querySelectorAll('[data-modal-target]');
-        this.closeModalButtons = document.querySelectorAll('[data-close-button]');
-       
 
-        this.form = document.getElementById('form');
+        
         this.name = document.getElementById('name');
         this.email = document.getElementById('email');
         this.address = document.getElementById('address');
@@ -24,42 +21,6 @@ class Cart {
                 this.totalAmount(cards[i]);
             })
         }
-   
-        this.openModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-            const modal = document.querySelector(button.dataset.modalTarget)
-            this.openModal(modal)
-            })
-        })
-
-      
-
-        this.closeModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-            const modal = button.closest('.modal')
-            this.closeModal(modal)
-            })
-        })
-
-        // this.overlay = document.getElementById('overlay');
-        // this.overlay.addEventListener('click', () => {
-        //     const modals = document.querySelectorAll('.modal.active')
-        //     modals.forEach(modal => {
-        //     this.closeModal(modal)
-        //     })
-        // })
-
-        // this.form.addEventListener('submit', (event) => {
-        //     event.preventDefault();
-        
-        //     this.checkRequired([this.name, this.email, this.number, this.address, this.cardNum, this.cvv, this.date]);
-        //     this.checkLength(this.name, 3, 30);
-        //     this.checkLength(this.number, 9, 20);
-        //     this.checkLength(this.address, 5, 100);
-        //     this.checkLengthCard(this.cardNum, 16);
-        //     this.checkLengthCard(this.date, 4);
-        //     this.checkLengthCard(this.cvv, 3);
-        // })
 
         this.onLoad();
         this.display();
@@ -212,6 +173,27 @@ class Cart {
                     <div id="overlay"></div>
                 </div>
             `;
+
+            this.openModalButtons = document.querySelectorAll('[data-modal-target]');
+            this.closeModalButtons = document.querySelectorAll('[data-close-button]');
+
+            this.openModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                const modal = document.querySelector(button.dataset.modalTarget)
+                this.openModal(modal)
+                })
+            })
+    
+          
+    
+            this.closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                const modal = button.closest('.modal')
+                this.closeModal(modal)
+                })
+            })
+
+
             this.deletebtn();
             this.manage();
             this.overlay = document.getElementById('overlay');
@@ -222,8 +204,9 @@ class Cart {
             })
 
 
-
+            this.form = document.getElementById('form');
             this.form.addEventListener('submit', (event) => {
+                console.log('sffs')
             event.preventDefault();
         
             this.checkRequired([this.name, this.email, this.number, this.address, this.cardNum, this.cvv, this.date]);
@@ -234,6 +217,8 @@ class Cart {
             this.checkLengthCard(this.date, 4);
             this.checkLengthCard(this.cvv, 3);
         })
+
+        
         })
 
             console.log()
@@ -350,7 +335,9 @@ class Cart {
     }
 
     checkRequired(input) {
+
         input.forEach((input) => {
+            console.log(input)
             if(input.value.trim() === '') {
                 this.showError(input, `${errorName(input)} is required`);
             } else {

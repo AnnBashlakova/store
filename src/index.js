@@ -3,8 +3,8 @@ import './assets/styles/sass/style.sass';
 //import handlerLoc from './components/router/router.js'
 import cards from "./data.js";
 // import Card from "../view/components/card.js";
-console.log('ggfg')
 
-// import { App } from "./components/app/app";
 
-// const app = new App()
+import { App } from "./components/app/app";
+
+const app = new App()
