@@ -1,6 +1,6 @@
 import cards from "../../../../data.js";
 
-class Cart {
+export default class Cart {
     constructor () {
         this.add = document.querySelectorAll('.btn-add');
 
@@ -369,6 +369,6 @@ class Cart {
     }
 }
 
-const cart = new Cart();
+// const cart = new Cart();
 
-export default Cart;
+// export default Cart;

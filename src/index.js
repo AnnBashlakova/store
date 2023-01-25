@@ -5,6 +5,6 @@ import cards from "./data.js";
 // import Card from "../view/components/card.js";
 
 
-import { App } from "./components/app/app.js";
+import  App  from "./components/app/app.js";
 
 const app = new App()

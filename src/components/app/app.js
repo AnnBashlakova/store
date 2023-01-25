@@ -1,6 +1,6 @@
 import cards from "../../data.js";
 import Card from "../view/components/card.js";
-
+import Cart from "../view/pages/cart/cart.js"
 
 
 export default class App {
@@ -43,6 +43,7 @@ export default class App {
 
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
+        this.cart = new Cart();
 
         }
         
