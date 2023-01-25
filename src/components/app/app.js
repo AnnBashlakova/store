@@ -4,7 +4,7 @@ import Card from "../view/components/card.js";
 
 
 export default class App {
-
+    
     constructor() {
         this.productsContainer = document.querySelector('.products-list')
         this.filterBtns = document.querySelectorAll('.list-item');

@@ -5,7 +5,7 @@ class Cart {
         this.add = document.querySelectorAll('.btn-add');
         this.openModalButtons = document.querySelectorAll('[data-modal-target]');
         this.closeModalButtons = document.querySelectorAll('[data-close-button]');
-        this.overlay = document.getElementById('overlay');
+       
 
         this.form = document.getElementById('form');
         this.name = document.getElementById('name');
@@ -32,12 +32,7 @@ class Cart {
             })
         })
 
-        this.overlay.addEventListener('click', () => {
-            const modals = document.querySelectorAll('.modal.active')
-            modals.forEach(modal => {
-            this.closeModal(modal)
-            })
-        })
+      
 
         this.closeModalButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -46,17 +41,25 @@ class Cart {
             })
         })
 
-        this.form.addEventListener('submit', (event) => {
-            event.preventDefault();
+        // this.overlay = document.getElementById('overlay');
+        // this.overlay.addEventListener('click', () => {
+        //     const modals = document.querySelectorAll('.modal.active')
+        //     modals.forEach(modal => {
+        //     this.closeModal(modal)
+        //     })
+        // })
+
+        // this.form.addEventListener('submit', (event) => {
+        //     event.preventDefault();
         
-            this.checkRequired([this.name, this.email, this.number, this.address, this.cardNum, this.cvv, this.date]);
-            this.checkLength(this.name, 3, 30);
-            this.checkLength(this.number, 9, 20);
-            this.checkLength(this.address, 5, 100);
-            this.checkLengthCard(this.cardNum, 16);
-            this.checkLengthCard(this.date, 4);
-            this.checkLengthCard(this.cvv, 3);
-        })
+        //     this.checkRequired([this.name, this.email, this.number, this.address, this.cardNum, this.cvv, this.date]);
+        //     this.checkLength(this.name, 3, 30);
+        //     this.checkLength(this.number, 9, 20);
+        //     this.checkLength(this.address, 5, 100);
+        //     this.checkLengthCard(this.cardNum, 16);
+        //     this.checkLengthCard(this.date, 4);
+        //     this.checkLengthCard(this.cvv, 3);
+        // })
 
         this.onLoad();
         this.display();
@@ -211,6 +214,29 @@ class Cart {
             `;
             this.deletebtn();
             this.manage();
+            this.overlay = document.getElementById('overlay');
+            this.overlay.addEventListener('click', () => {
+            const modals = document.querySelectorAll('.modal.active')
+            modals.forEach(modal => {
+            this.closeModal(modal)
+            })
+
+
+
+            this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+        
+            this.checkRequired([this.name, this.email, this.number, this.address, this.cardNum, this.cvv, this.date]);
+            this.checkLength(this.name, 3, 30);
+            this.checkLength(this.number, 9, 20);
+            this.checkLength(this.address, 5, 100);
+            this.checkLengthCard(this.cardNum, 16);
+            this.checkLengthCard(this.date, 4);
+            this.checkLengthCard(this.cvv, 3);
+        })
+        })
+
+            console.log()
     
         }
     
