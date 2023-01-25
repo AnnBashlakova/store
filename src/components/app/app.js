@@ -3,7 +3,7 @@ import Card from "../view/components/card.js";
 
 
 
-class App {
+export default class App {
 
     constructor() {
         this.productsContainer = document.querySelector('.products-list')
@@ -282,8 +282,3 @@ class App {
     
     // const app = new App();
 
-
-
-
-
-export default App;
