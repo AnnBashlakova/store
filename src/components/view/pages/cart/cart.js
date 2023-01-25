@@ -3,7 +3,6 @@ import cards from "../../../../data.js";
 export default class Cart {
     constructor () {
         this.add = document.querySelectorAll('.btn-add');
-
         
         this.name = document.getElementById('name');
         this.email = document.getElementById('email');
