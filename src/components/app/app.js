@@ -1,38 +1,17 @@
 import cards from "../../data.js";
-import {
-    getQuery
-} from "../view/query.js";
 import Card from "../view/components/card.js";
-
-const productsContainer = document.querySelector('.products-list')
-// const filterBtns = document.querySelectorAll('.list-item');
-// const BtnReset = document.querySelector('.btn-reset')
-// const searchInput = document.getElementById('search-input');
-// const SelectOption = document.querySelector('select')
-
-
-
-
-// productsContainer.innerHTML = (cards.map(item => {
-//             const allCards = new Card(item);
-//             return allCards.render()
-//         })).join("")
-            
-
-
-// let Option;
 
 
 
 class App {
 
     constructor() {
+        this.productsContainer = document.querySelector('.products-list')
         this.filterBtns = document.querySelectorAll('.list-item');
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-        // this.option = this.SelectOption.value;
-        // this.handlerCards = [...cards]
+
         
         this.RenderCards(cards)
         
@@ -50,16 +29,13 @@ class App {
         this.SelectOption.addEventListener('change',() => this.SortCard(this.sortCards))
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         this.inputFilter()
-        // this.SortCard(cards)
         ////
         this.inputStockMin = document.querySelectorAll('.inputMinValue')
         this.inputStockMax = document.querySelectorAll('.inputMaxValueStock')
         this.inputPriceMax = document.querySelectorAll('.inputMaxValuePrice')
         this.Progress = document.querySelectorAll('.progress')
         this.BtnReset.addEventListener('click', () => this.resetAll())
-
         ////
-
         this.col = document.querySelector('.tile-of-col'),
         this.row = document.querySelector('.tile-of-row'),
         this.productList = document.querySelector('.products-list'),
@@ -71,8 +47,8 @@ class App {
         }
         
         RenderCards(arr) {
-            productsContainer.innerHTML = null;
-            productsContainer.innerHTML = (arr.map(item => {
+            this.productsContainer.innerHTML = null;
+            this.productsContainer.innerHTML = (arr.map(item => {
                 const allCards = new Card(item);
                 return allCards.render()
             })).join("")
@@ -304,7 +280,7 @@ class App {
 
     }
     
-    const app = new App();
+    // const app = new App();
 
 
 
