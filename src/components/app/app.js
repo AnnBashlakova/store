@@ -1,5 +1,6 @@
 import cards from "../../data.js";
 import Card from "../view/components/card.js";
+import FilterAside from "../view/components/aside.js";
 import Cart from "../view/pages/cart/cart.js"
 
 
@@ -41,7 +42,7 @@ export default class App {
         this.row = document.querySelector('.tile-of-row'),
         this.productList = document.querySelector('.products-list'),
         this.productCard = document.querySelectorAll('.product-card')
-        this.mainPage.addEventListener('click', () => this.onLoadMainPage())
+        this.mainPage.addEventListener('click', () => this.RenderFilter())
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
         // this.cart = new Cart();
@@ -49,10 +50,15 @@ export default class App {
 
         }
         
-        onLoadMainPage(arr){
-            this.mainSection.innerHTML = ` 
-            ${this.RenderCards(this.sortCards)}
-            `
+        // onLoadMainPage(arr){
+        //     this.mainSection.innerHTML = ` 
+        //     ${this.RenderCards(this.sortCards)}
+        //     `
+        // }
+
+        RenderFilter() {
+            const asideFiltr = new FilterAside()
+            this.mainSection.innerHTML = asideFiltr.render()
         }
 
         RenderCards(arr) {
