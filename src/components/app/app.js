@@ -11,7 +11,8 @@ export default class App {
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-
+        this.mainPage = document.querySelector('.sneaker-icon-link')
+        this.mainSection = document.querySelector('.large-section')
         
         this.RenderCards(cards)
         
@@ -40,13 +41,20 @@ export default class App {
         this.row = document.querySelector('.tile-of-row'),
         this.productList = document.querySelector('.products-list'),
         this.productCard = document.querySelectorAll('.product-card')
-
+        this.mainPage.addEventListener('click', () => this.onLoadMainPage())
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
-        this.cart = new Cart();
+        // this.cart = new Cart();
+        this.basket = new Cart();
 
         }
         
+        onLoadMainPage(arr){
+            this.mainSection.innerHTML = ` 
+            ${this.RenderCards(this.sortCards)}
+            `
+        }
+
         RenderCards(arr) {
             this.productsContainer.innerHTML = null;
             this.productsContainer.innerHTML = (arr.map(item => {
@@ -79,7 +87,8 @@ export default class App {
             }
             this.RenderCards(this.sortCards)
 
-        }
+            
+            }
         
 
         changeUrl (arrBrand, arrCategory) {
@@ -101,7 +110,7 @@ export default class App {
                 for (let btn of this.filterBtns) {
                     btn.addEventListener('click', (event) => {
                         btn.toggleAttribute("disabled")
-                        btn.classList.toggle('list-item-active')
+                        btn.classList.add('list-item-active')
                         let name = btn.textContent;
                         this.nameFilter.push(name)
                         if (btn.dataset.filter == 'category') {
@@ -144,7 +153,7 @@ export default class App {
                 this.RenderCards(this.extraCards)
 
                 if (this.extraCards.length == 0) {
-                    productsContainer.innerHTML = 'Nothing found';
+                    this.productsContainer.innerHTML = 'Nothing found';
                 }
                 
             };
@@ -279,6 +288,9 @@ export default class App {
                 this.col.style.border='';
             }
 
+           
+
+            
     }
     
     // const app = new App();

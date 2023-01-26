@@ -2,8 +2,9 @@ import cards from "../../../../data.js";
 
 export default class Cart {
     constructor () {
+        this.BtnOpenBasket = document.querySelector('basket-icon-container')
         this.add = document.querySelectorAll('.btn-add');
-        
+
         this.name = document.getElementById('name');
         this.email = document.getElementById('email');
         this.address = document.getElementById('address');
@@ -13,7 +14,9 @@ export default class Cart {
         this.date = document.getElementById('date');
         this.errMes = document.querySelector('.err-mes');
         this.succMes = document.querySelector('.succ-mes');
-
+        this.BtnOpenBasket = document.querySelector('.basket-icon-link')
+        this.mainSection = document.querySelector('.large-section')
+        this.BtnOpenBasket.addEventListener('click', () => this.onLoadBasket())
         for (let i = 0; i < this.add.length; i++) {
             this.add[i].addEventListener('click', () => {
                 this.cartNums(cards[i]);
@@ -24,6 +27,27 @@ export default class Cart {
         this.onLoad();
         this.display();
     }
+
+
+    onLoadBasket() {
+        this.mainSection.innerHTML = `<main class="main-container container">
+                <section class="products-container cart">
+                    <div class="product-header">
+                        <h5 class="product-title">PRODUCT</h5>
+                        <h5 class="price">PRICE</h5>
+                        <h5 class="quantity">QUANTITY</h5>
+                        <h5 class="total">TOTAL</h5>
+                    </div>
+                    <div class="products">
+                    </div>
+                </section>
+            </main>`;
+
+    }
+
+
+
+
 
     onLoad() {
         let prodNums = localStorage.getItem('cartNums');
