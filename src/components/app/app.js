@@ -29,7 +29,7 @@ export default class App {
         this.nameFilter = [];
         this.getNameFIlter(cards, this.nameFilter)
         this.SelectOption.addEventListener('change',() => this.SortCard(this.sortCards))
-        document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
+        // document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         this.inputFilter()
         ////
         this.inputStockMin = document.querySelectorAll('.inputMinValue')
@@ -47,7 +47,8 @@ export default class App {
         this.row.addEventListener('click', () => this.RowCard())
         // this.cart = new Cart();
         this.basket = new Cart();
-
+        this.RenderFilter()
+        document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         }
         
         // onLoadMainPage(arr){
@@ -58,7 +59,8 @@ export default class App {
 
         RenderFilter() {
             const asideFiltr = new FilterAside()
-            this.mainSection.innerHTML = asideFiltr.render()
+            this.mainSection.innerHTML = asideFiltr.render();
+            document.querySelectorAll(".element").forEach(n => this.slider(n));
         }
 
         RenderCards(arr) {
@@ -246,8 +248,7 @@ export default class App {
             inputFilter() {
                 this.searchInput.addEventListener('input', (event) => {
                     const value = (event.target.value.trim()).toUpperCase();
-                    console.log(value)
-                    console.log(this.extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value)))
+        
                     let filtrCard = this.extraCards.filter(item => (item.brand).toUpperCase().includes(value) || (item.category).toUpperCase().includes(value))
                     
                     this.RenderCards(filtrCard)
