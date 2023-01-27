@@ -141,31 +141,7 @@ export default class FilterAside {
       
             <div class="products-list">
     
-                            <div class="product-card">
-                    
-                            <div class="product-top">
-                              <span class="product-name">NIKE AIR FORCE 1 07</span>
-                            </div>
-                    
-                            <div class="product-middle">
-                              <img class="product-img" src="https://www.basketshop.ru/files/catalog/43246/DZ4493-700%20(3).JPG" alt="nike_air_force_1.jpg">
-                    
-                              <ul class="product-data-list">
-                                <li class="categori">Category: snicers</li>
-                                <li class="brand-ame">Brand: Nike</li>
-                                <li class="price">Price: 250$</li>
-                                <li class="stock">Stock: 15</li>
-                              </ul>
-                            </div>
-                    
-                            <div class="product-bottom">
-                    
-                              <button class="btn btn-add">ADD TO BASKET</button>
-                              <button class="btn btn-info">MORE INFO</button>
-                    
-                            </div>
-                    
-                            </div>
+                        
           
       
       

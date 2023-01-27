@@ -7,13 +7,23 @@ import Cart from "../view/pages/cart/cart.js"
 export default class App {
     
     constructor() {
-        // this.productsContainer = document.querySelector('.products-list')
+
+       
+        this.mainPage = document.querySelector('.sneaker-icon-link')
+        this.mainSection = document.querySelector('.large-section')
+        this.RenderFilter()
+        // this.productsContainer = document.querySelector('.products-list') //работало
+        console.log(this.productsContainer)
+        // this.RenderCards(cards) ///работало
         this.filterBtns = document.querySelectorAll('.list-item');
+
+        console.log(this.filterBtns)
+
+        this.getNameFIlter()
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-        this.mainPage = document.querySelector('.sneaker-icon-link')
-        this.mainSection = document.querySelector('.large-section')
+        
       
         
         
@@ -40,19 +50,16 @@ export default class App {
         ////
         this.col = document.querySelector('.tile-of-col'),
         this.row = document.querySelector('.tile-of-row'),
-        this.productList = document.querySelector('.products-list'),
         this.productCard = document.querySelectorAll('.product-card')
-        // this.mainPage.addEventListener('click', () => this.loadPage())
+        this.mainPage.addEventListener('click', () => this.RenderFilter())
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
         // this.cart = new Cart();
         this.basket = new Cart();
         
-        this.productsContainer = document.querySelector('.products-list')
-        this.RenderFilter()
-        // this.RenderCards(cards)
+       
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
-        this.getNameFIlter()    
+        // this.getNameFIlter()    
     }
         
 
@@ -60,6 +67,8 @@ export default class App {
             const asideFiltr = new FilterAside()
             this.mainSection.innerHTML = asideFiltr.render();
             document.querySelectorAll(".element").forEach(n => this.slider(n));
+            this.productsContainer = document.querySelector('.products-list')
+            console.log(this.productsContainer)
             this.RenderCards(cards)
         }
 
@@ -67,7 +76,6 @@ export default class App {
             this.productsContainer.innerHTML = null;
             this.productsContainer.innerHTML = (arr.map(item => {
                 const allCards = new Card(item);
-                console.log('render card')
                 return allCards.render()
             })).join("")
         }
@@ -122,19 +130,19 @@ export default class App {
                 for (let btn of this.filterBtns) {
                     btn.addEventListener('click', () => {
                         console.log('кнопка нажата')
-                        // btn.toggleAttribute("disabled")
-                        // btn.classList.add('list-item-active')
-                        // let name = btn.textContent;
-                        // this.nameFilter.push(name)
-                        // if (btn.dataset.filter == 'category') {
-                        //     this.Category.push(name);
-                        // } else {
-                        //     this.Brand.push(name);
-                        // }
+                        btn.toggleAttribute("disabled")
+                        btn.classList.add('list-item-active')
+                        let name = btn.textContent;
+                        this.nameFilter.push(name)
+                        if (btn.dataset.filter == 'category') {
+                            this.Category.push(name);
+                        } else {
+                            this.Brand.push(name);
+                        }
                     
-                        // this.NewFiltArr(cards, this.nameFilter)
-                        // this.changeUrl(this.Brand, this.Category);
-                        // this.SortCard(cards)
+                        this.NewFiltArr(cards, this.nameFilter)
+                        this.changeUrl(this.Brand, this.Category);
+                        this.SortCard(cards)
                     });
             
                 };
@@ -287,7 +295,7 @@ export default class App {
 
 
             ColumnCard() {
-                this.productList.classList.add('products-list-column');
+                this.productsContainer.classList.add('products-list-column');
                 this.productCard.forEach((item) => item.classList.add('product-card-column'));
                 this.col.style.border='2px solid red';
                 this.row.style.border='';
@@ -295,7 +303,7 @@ export default class App {
 
 
             RowCard() {
-                this.productList.classList.remove('products-list-column');
+                this.productsContainer.classList.remove('products-list-column');
                 this.productCard.forEach((item) => item.classList.remove('product-card-column'));
                 this.row.style.border='2px solid red';
                 this.col.style.border='';
