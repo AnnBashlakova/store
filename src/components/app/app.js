@@ -17,7 +17,6 @@ export default class App {
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
         this.getNameFIlter()
-      
         
         
         this.extraCards = [...cards];//копии массива с карточками товаров

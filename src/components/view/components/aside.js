@@ -1,5 +1,5 @@
 
-export default class FilterAside {
+export default class FilterAside{
     constructor() {
         this.priceMin = '0';
         this.priceMax = '1000';
