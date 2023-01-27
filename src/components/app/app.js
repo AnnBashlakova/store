@@ -8,22 +8,15 @@ export default class App {
     
     constructor() {
 
-       
         this.mainPage = document.querySelector('.sneaker-icon-link')
         this.mainSection = document.querySelector('.large-section')
         this.RenderFilter()
-        // this.productsContainer = document.querySelector('.products-list') //работало
-        console.log(this.productsContainer)
-        // this.RenderCards(cards) ///работало
         this.filterBtns = document.querySelectorAll('.list-item');
-
-        console.log(this.filterBtns)
-
-        this.getNameFIlter()
+        
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
-        
+        this.getNameFIlter()
       
         
         
@@ -126,7 +119,6 @@ export default class App {
 
             getNameFIlter() {
                
-                
                 for (let btn of this.filterBtns) {
                     btn.addEventListener('click', () => {
                         console.log('кнопка нажата')
@@ -134,21 +126,27 @@ export default class App {
                         btn.classList.add('list-item-active')
                         let name = btn.textContent;
                         this.nameFilter.push(name)
+                        console.log(this.nameFilter)
                         if (btn.dataset.filter == 'category') {
                             this.Category.push(name);
+                            console.log(this.Category)
                         } else {
                             this.Brand.push(name);
                         }
-                    
-                        this.NewFiltArr(cards, this.nameFilter)
+
+                        
                         this.changeUrl(this.Brand, this.Category);
                         this.SortCard(cards)
+                        console.log(this.extraCards)
+                        // this.RenderCards(this.extraCards)
+                        this.NewFiltArr(cards, this.nameFilter)
                     });
             
                 };
+               
             };
             
-
+            
                 NewFiltArr(arr1, params) {
 
 
@@ -168,16 +166,17 @@ export default class App {
                     this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  &&  params.includes(item.category))
                 
                     if (this.extraCards.length == 0) {
-                        productsContainer.innerHTML = 'Nothing found';
+                        this.productsContainer.innerHTML = 'Nothing found';
                     }
                 };
 
-                this.RenderCards(this.extraCards)
+                
 
                 if (this.extraCards.length == 0) {
                     this.productsContainer.innerHTML = 'Nothing found';
                 }
                 
+                this.RenderCards(this.extraCards)
             };
 
 
