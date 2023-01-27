@@ -7,15 +7,15 @@ import Cart from "../view/pages/cart/cart.js"
 export default class App {
     
     constructor() {
-        this.productsContainer = document.querySelector('.products-list')
+        // this.productsContainer = document.querySelector('.products-list')
         this.filterBtns = document.querySelectorAll('.list-item');
         this.BtnReset = document.querySelector('.btn-reset')
         this.searchInput = document.getElementById('search-input');
         this.SelectOption = document.querySelector('select')
         this.mainPage = document.querySelector('.sneaker-icon-link')
         this.mainSection = document.querySelector('.large-section')
+      
         
-        this.RenderCards(cards)
         
         this.extraCards = [...cards];//копии массива с карточками товаров
         ////////
@@ -27,7 +27,7 @@ export default class App {
         this.Brand = [];
         this.Category = [];
         this.nameFilter = [];
-        this.getNameFIlter(cards, this.nameFilter)
+        
         this.SelectOption.addEventListener('change',() => this.SortCard(this.sortCards))
         // document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         this.inputFilter()
@@ -42,35 +42,36 @@ export default class App {
         this.row = document.querySelector('.tile-of-row'),
         this.productList = document.querySelector('.products-list'),
         this.productCard = document.querySelectorAll('.product-card')
-        this.mainPage.addEventListener('click', () => this.RenderFilter())
+        // this.mainPage.addEventListener('click', () => this.loadPage())
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
         // this.cart = new Cart();
         this.basket = new Cart();
-        this.RenderFilter()
-        document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
-        }
         
-        // onLoadMainPage(arr){
-        //     this.mainSection.innerHTML = ` 
-        //     ${this.RenderCards(this.sortCards)}
-        //     `
-        // }
+        this.productsContainer = document.querySelector('.products-list')
+        this.RenderFilter()
+        // this.RenderCards(cards)
+        document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
+        this.getNameFIlter()    
+    }
+        
 
         RenderFilter() {
             const asideFiltr = new FilterAside()
             this.mainSection.innerHTML = asideFiltr.render();
             document.querySelectorAll(".element").forEach(n => this.slider(n));
-            getNameFIlter()
+            this.RenderCards(cards)
         }
 
         RenderCards(arr) {
             this.productsContainer.innerHTML = null;
             this.productsContainer.innerHTML = (arr.map(item => {
                 const allCards = new Card(item);
+                console.log('render card')
                 return allCards.render()
             })).join("")
         }
+
 
         SortCard(arr) {
             console.log(this.SelectOption)
@@ -115,21 +116,24 @@ export default class App {
             window.history.pushState({}, '', url.href); 
             }
 
-            getNameFIlter(arr, arr2) {
+            getNameFIlter() {
+               
+                
                 for (let btn of this.filterBtns) {
-                    btn.addEventListener('click', (event) => {
-                        btn.toggleAttribute("disabled")
-                        btn.classList.add('list-item-active')
-                        let name = btn.textContent;
-                        this.nameFilter.push(name)
-                        if (btn.dataset.filter == 'category') {
-                            this.Category.push(name);
-                        } else {
-                            this.Brand.push(name);
-                        }
+                    btn.addEventListener('click', () => {
+                        console.log('кнопка нажата')
+                        // btn.toggleAttribute("disabled")
+                        // btn.classList.add('list-item-active')
+                        // let name = btn.textContent;
+                        // this.nameFilter.push(name)
+                        // if (btn.dataset.filter == 'category') {
+                        //     this.Category.push(name);
+                        // } else {
+                        //     this.Brand.push(name);
+                        // }
                     
-                        this.NewFiltArr(cards, this.nameFilter)
-                        this.changeUrl(this.Brand, this.Category);
+                        // this.NewFiltArr(cards, this.nameFilter)
+                        // this.changeUrl(this.Brand, this.Category);
                         // this.SortCard(cards)
                     });
             
@@ -138,6 +142,7 @@ export default class App {
             
 
                 NewFiltArr(arr1, params) {
+
 
                 if (this.Brand.length == 0 && this.Category.length == 0 ) {
                     
