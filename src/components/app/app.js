@@ -50,7 +50,6 @@ export default class App {
         // this.cart = new Cart();
         this.basket = new Cart();
         
-       
         document.querySelectorAll(".element").forEach(n => this.slider(n)); //слушатель на два слайдера
         // this.getNameFIlter()    
     }

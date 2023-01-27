@@ -124,6 +124,7 @@ export default class Cart {
     
         if(items && this.prodCont) {
             this.prodCont.innerHTML = '';
+            console.log(items)
             Object.values(items).map((item, index) => {
                 this.prodCont.innerHTML += `
                 <div class="product">
