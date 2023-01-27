@@ -61,6 +61,7 @@ export default class App {
             const asideFiltr = new FilterAside()
             this.mainSection.innerHTML = asideFiltr.render();
             document.querySelectorAll(".element").forEach(n => this.slider(n));
+            getNameFIlter()
         }
 
         RenderCards(arr) {

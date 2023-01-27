@@ -11,7 +11,7 @@ export default class FilterAside {
     render() {
         return `  <section class="subheader container">
         </section>
-         <aside class="sidebar">
+          <aside class="sidebar">
   
         <button class="btn btn-reset">RESET FILTER</button>
   

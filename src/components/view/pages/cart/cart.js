@@ -25,7 +25,6 @@ export default class Cart {
         }
 
         this.onLoad();
-        this.display();
     }
 
 
@@ -43,6 +42,8 @@ export default class Cart {
                 </section>
             </main>`;
 
+        this.prodCont = document.querySelector('.products');
+        this.display();
     }
 
 
@@ -116,14 +117,15 @@ export default class Cart {
     display() {
         let items = localStorage.getItem('prodInCart');
         items = JSON.parse(items)
-        let prodCont = document.querySelector('.products');
+        //let prodCont = document.querySelector('.products');
+        console.log(this.prodCont)
         let cost = localStorage.getItem('total');
         cost = parseInt(cost);
     
-        if(items && prodCont) {
-            prodCont.innerHTML = '';
+        if(items && this.prodCont) {
+            this.prodCont.innerHTML = '';
             Object.values(items).map((item, index) => {
-                prodCont.innerHTML += `
+                this.prodCont.innerHTML += `
                 <div class="product">
                     <div class="first-part">
                         <h5 class="signs remove">Х</h5>
@@ -143,7 +145,7 @@ export default class Cart {
                 `
             })
     
-            prodCont.innerHTML += `
+            this.prodCont.innerHTML += `
                 <div class="cartTotal">
                     <h2 class="cart-total-title">TOTAL AMOUNT</h2>
                     <span class="header-totall-price">$${cost},00</span>
@@ -248,8 +250,9 @@ export default class Cart {
     
         }
     
+        //console.log(prodCont)
         if (items === null) {
-            prodCont.innerHTML = `
+            this.prodCont.innerHTML = `
             <h2>Cart is Empty</h2>
                 <a href="/index.html">
                     <button class="btn">Back to home</button>
@@ -395,3 +398,6 @@ export default class Cart {
 // const cart = new Cart();
 
 // export default Cart;
+
+
+
