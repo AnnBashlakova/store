@@ -43,7 +43,7 @@ export default class App {
         this.col = document.querySelector('.tile-of-col'),
         this.row = document.querySelector('.tile-of-row'),
         this.productCard = document.querySelectorAll('.product-card')
-        this.mainPage.addEventListener('click', () => this.RenderFilter())
+        this.mainPage.addEventListener('click', () => this.RenderMain())
         this.col.addEventListener('click', () => this.ColumnCard())
         this.row.addEventListener('click', () => this.RowCard())
         // this.cart = new Cart();
@@ -62,6 +62,8 @@ export default class App {
             console.log(this.productsContainer)
             this.RenderCards(cards)
         }
+
+       
 
         RenderCards(arr) {
             this.productsContainer.innerHTML = null;
@@ -116,7 +118,7 @@ export default class App {
             }
 
             getNameFIlter() {
-               
+               console.log('getNameFilter')
                 for (let btn of this.filterBtns) {
                     btn.addEventListener('click', () => {
                         console.log('кнопка нажата')
@@ -238,7 +240,7 @@ export default class App {
                             console.log(this.extraCards)
                             this.RenderCards(this.extraCards)
                             if (this.extraCards.length == 0) {
-                                productsContainer.innerHTML = 'Nothing found';
+                                this.productsContainer.innerHTML = 'Nothing found';
                             }
                         if ((maxVal - minVal) < priceGap) {
                             if (e.target.className === "range-min") {
@@ -264,7 +266,7 @@ export default class App {
                     
                     this.RenderCards(filtrCard)
                     if (filtrCard.length == 0) {
-                        productsContainer.innerHTML = 'Nothing found';
+                        this.productsContainer.innerHTML = 'Nothing found';
                     }
                 })
             }
@@ -306,7 +308,21 @@ export default class App {
                 this.col.style.border='';
             }
 
-           
+            RenderMain() {
+                const asideFiltr = new FilterAside()
+                this.mainSection.innerHTML = asideFiltr.render();
+                document.querySelectorAll(".element").forEach(n => this.slider(n));
+                this.productsContainer = document.querySelector('.products-list')
+                console.log('render Card')
+                console.log(this.BtnReset)
+                this.RenderCards(this.extraCards)
+                this.getNameFIlter()
+               
+                this.RenderFilter()
+                
+                this.resetAll()
+                this.basket = new Cart();
+            }
 
             
     }
