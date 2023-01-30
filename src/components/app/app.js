@@ -12,17 +12,21 @@ export default class App {
         this.mainSection = document.querySelector('.large-section');
         this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
         this.BtnOpenBasket = document.querySelector('.basket-icon-link')
-        this.loadStore();
+
         
 
-        this.BtnOpenMainPage.addEventListener('click', this.loadStore()) 
+        this.BtnOpenMainPage.addEventListener('click', () => {
+            this.StartPage();
+        }) 
 
-        this.BtnOpenBasket.addEventListener('click', this.loadBasket()) 
+        this.BtnOpenBasket.addEventListener('click', () => {
+            this.loadBasket()
+        }) 
 
         
         
     }
-        loadStore() {
+        StartPage() {
             console.log('append')
             const mainPage = new mainPageStore();
             this.mainSection.innerHTML = mainPage.render()
@@ -31,9 +35,10 @@ export default class App {
 
         loadBasket() {
             console.log('basket')
-            this.mainSection.innerHTML =''
+            // this.mainSection.innerHTML =''
             const basketPage = new Cart();
-            this.mainSection.appendChild(basketPage.onLoadBasket())
+            this.mainSection.innerHTML = basketPage.render()
+            // this.mainSection.appendChild(basketPage.onLoadBasket())
         }
 
 

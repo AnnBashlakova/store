@@ -35,9 +35,9 @@ export default class Cart {
     }
 
 
-    onLoadBasket() {
+    render() {
         // this.mainSection.innerHTML = mainPage.destroy();
-        this.mainSection.innerHTML = `<main class="main-container container">
+        return `<main class="main-container container">
                 <section class="products-container cart">
                     <div class="product-header">
                         <h5 class="product-title">PRODUCT</h5>
@@ -50,8 +50,8 @@ export default class Cart {
                 </section>
             </main>`;
 
-        this.prodCont = document.querySelector('.products');
-        this.display();
+        // this.prodCont = document.querySelector('.products');
+        // this.display();
     }
 
 
