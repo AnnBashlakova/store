@@ -1,8 +1,6 @@
 export default class mainPageStore {
     constructor() {
-        this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
 
-        this.BtnOpenMainPage.addEventListener('click', () => this.render())
         
     }
 
@@ -171,6 +169,8 @@ export default class mainPageStore {
         </div>
   
       </section>
+
+      </main>
         
         `
     }
