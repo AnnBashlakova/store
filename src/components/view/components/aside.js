@@ -35,7 +35,7 @@ export default class FilterAside{
               <div class="brand">
                 <span class="filter-title">BRAND</span>
                 <ul class="list">
-                  <button class="list-item"  data-filter="brand">Nike</button>
+                  <button class="list-item "  data-filter="brand">Nike</button>
                   <button class="list-item"  data-filter="brand">Jordan</button>
                   <button class="list-item"  data-filter="brand">Puma</button>
                   <button class="list-item"  data-filter="brand">Adidas</button>
