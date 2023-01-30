@@ -8,27 +8,24 @@ import mainPageStore from "../view/pages/mainPageStore"
 export default class App {
     
     constructor() {
+
         this.mainSection = document.querySelector('.large-section');
         this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
         this.BtnOpenBasket = document.querySelector('.basket-icon-link')
         this.loadStore();
         
 
-        // this.BtnOpenMainPage.addEventListener('click', this.loadStore()) 
+        this.BtnOpenMainPage.addEventListener('click', this.loadStore()) 
 
-        // this.BtnOpenBasket.addEventListener('click', this.loadBasket()) 
+        this.BtnOpenBasket.addEventListener('click', this.loadBasket()) 
 
         
         
     }
         loadStore() {
             console.log('append')
-            
             const mainPage = new mainPageStore();
-            console.log((mainPage.render()))
-
-            
-            this.mainSection.appendChild(mainPage.render());
+            this.mainSection.innerHTML = mainPage.render()
         }
 
 
