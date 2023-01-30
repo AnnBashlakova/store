@@ -10,12 +10,20 @@ export default class App {
     constructor() {
         this.mainSection = document.querySelector('.large-section')
         this.loadStore()
+        this.store = new mainPageStore
+        this.basket = new Cart();
+        
         
     }
         loadStore() {
             const mainPage = new mainPageStore()
             this.mainSection.innerHTML = mainPage.render();
         }
+
+        // openBasket() {
+        //     this.basket = new Cart();
+        //     this.mainSection.innerHTML = basket.onLoadBasket();
+        // }
         
     }
     

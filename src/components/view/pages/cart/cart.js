@@ -1,3 +1,4 @@
+import mainPageStore from "../mainPageStore.js";
 import cards from "../../../../data.js";
 
 export default class Cart {
@@ -16,6 +17,12 @@ export default class Cart {
         this.succMes = document.querySelector('.succ-mes');
         this.BtnOpenBasket = document.querySelector('.basket-icon-link')
         this.mainSection = document.querySelector('.large-section')
+        this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
+
+        this.BtnOpenMainPage.addEventListener('click', () => {
+            const mainPage = new mainPageStore()
+            this.mainSection.innerHTML = mainPage.render()
+        } )
         this.BtnOpenBasket.addEventListener('click', () => this.onLoadBasket())
         for (let i = 0; i < this.add.length; i++) {
             this.add[i].addEventListener('click', () => {
@@ -29,6 +36,7 @@ export default class Cart {
 
 
     onLoadBasket() {
+        // this.mainSection.innerHTML = mainPage.destroy();
         this.mainSection.innerHTML = `<main class="main-container container">
                 <section class="products-container cart">
                     <div class="product-header">

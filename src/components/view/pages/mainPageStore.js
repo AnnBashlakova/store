@@ -1,10 +1,12 @@
 export default class mainPageStore {
     constructor() {
+        this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
 
+        this.BtnOpenMainPage.addEventListener('click', () => this.render())
+        
     }
 
     render() {
-        
         return `
 
           <section class="subheader container">
@@ -173,7 +175,7 @@ export default class mainPageStore {
         `
     }
 
-    
+
 
 
     destroy() {
