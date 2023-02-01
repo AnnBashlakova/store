@@ -1,10 +1,19 @@
 export default class mainPageStore {
     constructor() {
 
-        
+      // console.log(this.storage)
+      // console.log(prop)
+        // this.priceMin = prop.filter.priceMin;
+        // this.priceMax = prop.filter.priceMax;
+        // this.stockMin = prop.filter.stockMin;
+        // this.stockMax = prop.filter.stockMax;
+
+        console.log(this.storage)
     }
 
+
     render() {
+      console.log(this.storage)
         return `
 
           <section class="subheader container">

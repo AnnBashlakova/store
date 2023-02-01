@@ -6,24 +6,19 @@ export default class Cart {
         this.BtnOpenBasket = document.querySelector('basket-icon-container')
         this.add = document.querySelectorAll('.btn-add');
 
-        this.name = document.getElementById('name');
-        this.email = document.getElementById('email');
-        this.address = document.getElementById('address');
-        this.number = document.getElementById('number');
-        this.cardNum = document.getElementById('card-num');
-        this.cvv = document.getElementById('cvv');
-        this.date = document.getElementById('date');
-        this.errMes = document.querySelector('.err-mes');
-        this.succMes = document.querySelector('.succ-mes');
-        this.BtnOpenBasket = document.querySelector('.basket-icon-link')
-        this.mainSection = document.querySelector('.large-section')
-        this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
+        // this.name = document.getElementById('name');
+        // this.email = document.getElementById('email');
+        // this.address = document.getElementById('address');
+        // this.number = document.getElementById('number');
+        // this.cardNum = document.getElementById('card-num');
+        // this.cvv = document.getElementById('cvv');
+        // this.date = document.getElementById('date');
+        // this.errMes = document.querySelector('.err-mes');
+        // this.succMes = document.querySelector('.succ-mes');
+        // this.BtnOpenBasket = document.querySelector('.basket-icon-link')
+        // this.mainSection = document.querySelector('.large-section')
+        // this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
 
-        this.BtnOpenMainPage.addEventListener('click', () => {
-            const mainPage = new mainPageStore()
-            this.mainSection.innerHTML = mainPage.render()
-        } )
-        this.BtnOpenBasket.addEventListener('click', () => this.onLoadBasket())
         for (let i = 0; i < this.add.length; i++) {
             this.add[i].addEventListener('click', () => {
                 this.cartNums(cards[i]);

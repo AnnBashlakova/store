@@ -9,6 +9,17 @@ export default class App {
     
     constructor() {
 
+       const  storage = {
+          filter: {
+            priceMin: '0',
+            priceMax: '1000',
+            stockMin: '0',
+            stockMax: '45'
+          } , 
+            
+        }
+
+        // console.log(storage)
         this.mainSection = document.querySelector('.large-section');
         this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
         this.BtnOpenBasket = document.querySelector('.basket-icon-link')
@@ -27,15 +38,16 @@ export default class App {
         
     }
         StartPage() {
+            // console.log(this.storage)
             console.log('append')
-            const mainPage = new mainPageStore();
+            const mainPage = new mainPageStore(this.storage);
             this.mainSection.innerHTML = mainPage.render()
         }
 
 
         loadBasket() {
             console.log('basket')
-            // this.mainSection.innerHTML =''
+            this.mainSection.innerHTML =''
             const basketPage = new Cart();
             this.mainSection.innerHTML = basketPage.render()
             // this.mainSection.appendChild(basketPage.onLoadBasket())
