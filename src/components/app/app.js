@@ -41,18 +41,14 @@ export default class App {
             console.log(this.storage)
             console.log('append')
             const mainPage = new mainPageStore(this.storage);
-            this.mainSection.innerHTML = mainPage.render(this.storage, (num1, num2, num3, num4) => {
-                this.storage.filter.priceMin = num1 * 2;
-                this.storage.filter.priceMax = num2;
-                this.storage.filter.stockMin = num3;
-                this.storage.filter.stockMax = num4;
-                console.log(this.storage.filter)
-
-            })
+            this.mainSection.innerHTML = mainPage.render(this.storage)
+            mainPage.addListener()
         }
 
 
-
+        // Listener(){
+        //     console.log('eventlist')
+        //   }
 
 
         loadBasket() {
