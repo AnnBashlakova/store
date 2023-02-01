@@ -9,9 +9,9 @@ export default class App {
     
     constructor() {
 
-       const  storage = {
+       this.storage = {
           filter: {
-            priceMin: '0',
+            priceMin: '2',
             priceMax: '1000',
             stockMin: '0',
             stockMax: '45'
@@ -38,11 +38,21 @@ export default class App {
         
     }
         StartPage() {
-            // console.log(this.storage)
+            console.log(this.storage)
             console.log('append')
             const mainPage = new mainPageStore(this.storage);
-            this.mainSection.innerHTML = mainPage.render()
+            this.mainSection.innerHTML = mainPage.render(this.storage, (num1, num2, num3, num4) => {
+                this.storage.filter.priceMin = num1 * 2;
+                this.storage.filter.priceMax = num2;
+                this.storage.filter.stockMin = num3;
+                this.storage.filter.stockMax = num4;
+                console.log(this.storage.filter)
+
+            })
         }
+
+
+
 
 
         loadBasket() {
@@ -54,10 +64,18 @@ export default class App {
         }
 
 
-        // openBasket() {
-        //     this.basket = new Cart();
-        //     this.mainSection.innerHTML = basket.onLoadBasket();
+        // getPriceVal(e,namb1,namb2) {
+        //     if (e.target.dataset.filter =='price') {
+        //         this.priceMin = namb1;
+        //         this.priceMax = namb2;
+        //     } else {
+        //         this.stockMin = namb1;
+        //         this.stockMax = namb2;
+        //     }
         // }
+
+
+
         
     }
     

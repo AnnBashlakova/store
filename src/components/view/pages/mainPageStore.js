@@ -1,19 +1,20 @@
 export default class mainPageStore {
-    constructor() {
+    constructor(prop) {
 
       // console.log(this.storage)
-      // console.log(prop)
-        // this.priceMin = prop.filter.priceMin;
-        // this.priceMax = prop.filter.priceMax;
-        // this.stockMin = prop.filter.stockMin;
-        // this.stockMax = prop.filter.stockMax;
+      console.log(prop)
+        this.priceMin = prop.filter.priceMin;
+        this.priceMax = prop.filter.priceMax;
+        this.stockMin = prop.filter.stockMin;
+        this.stockMax = prop.filter.stockMax;
 
-        console.log(this.storage)
+
     }
 
 
-    render() {
-      console.log(this.storage)
+    render(prop, getNumFiltr) {
+      console.log(prop)
+      getNumFiltr(this.priceMin, this. priceMax, this.stockMin, this.stockMax);
         return `
 
           <section class="subheader container">
@@ -61,11 +62,11 @@ export default class mainPageStore {
               <div class="price-input" data-filter="price">
   
                 <div class="field field-price">
-                  <input type="number" class="input-min inputMinValue" value="0" data-filter="price">
+                  <input type="number" class="input-min inputMinValue" value="${this.priceMin}" data-filter="price">
                 </div>
     
                 <div class="field field-price">
-                  <input type="number" class="input-max inputMaxValuePrice" value="1000" data-filter="price">
+                  <input type="number" class="input-max inputMaxValuePrice" value="${this.priceMax}" data-filter="price">
                 </div>
                 
               </div>
@@ -75,8 +76,8 @@ export default class mainPageStore {
               </div>
       
               <div class="range-input">
-                <input type="range" class="range-min inputMinValue" min="0" max="1000" value="0" step="5" data-filter="price">
-                <input type="range" class="range-max inputMaxValuePrice" min="0" max="1000" value="1000" step="5" data-filter="price">
+                <input type="range" class="range-min inputMinValue" min="0" max="1000" value="${this.priceMin}" step="5" data-filter="price">
+                <input type="range" class="range-max inputMaxValuePrice" min="0" max="1000" value="${this.priceMax}" step="5" data-filter="price">
               </div>
     
             </div>
@@ -90,11 +91,11 @@ export default class mainPageStore {
                 <div class="price-input">
     
                   <div class="field">
-                    <input type="number" class="input-min inputMinValue" value="0" data-filter="stock">
+                    <input type="number" class="input-min inputMinValue" value="${this.stockMin}" data-filter="stock">
                   </div>
       
                   <div class="field ">
-                    <input type="number" class="input-max input-max-stock inputMaxValueStock" value="45" data-filter="stock">
+                    <input type="number" class="input-max input-max-stock inputMaxValueStock" value="${this.stockMax}" data-filter="stock">
                   </div>
                   
                 </div>
@@ -104,8 +105,8 @@ export default class mainPageStore {
                 </div>
         
                 <div class="range-input">
-                  <input type="range" class="range-min inputMinValue" min="0" max="50" value="1" step="1" data-filter="stock">
-                  <input type="range" class="range-max inputMaxValueStock" min="0" max="50" value="45" step="1" data-filter="stock">
+                  <input type="range" class="range-min inputMinValue" min="0" max="50" value="${this.stockMin}" step="1" data-filter="stock">
+                  <input type="range" class="range-max inputMaxValueStock" min="0" max="50" value="${this.stockMax}" step="1" data-filter="stock">
                 </div>
       
               </div>
