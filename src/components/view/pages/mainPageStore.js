@@ -8,7 +8,7 @@ export default class mainPageStore {
     this.stockMin = prop.filter.stockMin;
     this.stockMax = prop.filter.stockMax;
 
-
+  
   }
 
 
@@ -67,7 +67,7 @@ export default class mainPageStore {
   
             <span class="range-filter-title">PRICE</span>
   
-            <div class="element price-filter">
+            <div class="element price-filter" id ="priceFiltr">
               <div class="price-input" data-filter="price">
   
                 <div class="field field-price">
@@ -96,15 +96,15 @@ export default class mainPageStore {
   
               <span class="range-filter-title">STOCK</span>
     
-              <div class="element stock-filter">
+              <div class="element stock-filter"  id ="stockFiltr">
                 <div class="price-input">
     
                   <div class="field">
-                    <input type="number" class="input-min inputMinValue" value="${this.stockMin}" data-filter="stock">
+                    <input type="number" class="input-min inputMinValue" id="inputMinStock" value="${this.stockMin}" data-filter="stock">
                   </div>
       
                   <div class="field ">
-                    <input type="number" class="input-max input-max-stock inputMaxValueStock" value="${this.stockMax}" data-filter="stock">
+                    <input type="number" class="input-max input-max-stock inputMaxValueStock" id="inputMaxStock" value="${this.stockMax}" data-filter="stock">
                   </div>
                   
                 </div>
@@ -203,61 +203,69 @@ export default class mainPageStore {
 
 
   addListener() {
-    document.querySelectorAll(".element").forEach(n => this.slider(n));
+    this.slider(document.querySelector('#priceFiltr'));
+    this.slider(document.querySelector('#stockFiltr'));
+
+
   }
 
-  slider(element) {
+  getPriceVal(e,namb1,namb2) {
+    if (e.target.dataset.filter =='price') {
+      console.log('price')
+        // this.priceMin = namb1;
+        // this.priceMax = namb2;
+        console.log(namb1)
+    } else {
+      console.log('stock')
+        this.stockMin = namb1;
+        this.stockMax = namb2;
+        console.log(namb1)
+    }
+}
 
-    const slider = Boolean(element.classList) ? element : document.querySelector(selector);
-    const rangeInput = slider.querySelectorAll(".range-input input");
-    const priceInput = slider.querySelectorAll(".price-input input");
-    const range = slider.querySelector(".slider .progress");
 
-    let priceGap = 10;
+  slider(n) {
+      const rangeInput = n.querySelectorAll(".range-input input");
+      const priceInput = n.querySelectorAll(".price-input input");
+      const range = n.querySelector(".slider .progress");
+      let priceGap = 10;
 
+      console.log('/**')
 
     //слушатель на инпут
     priceInput.forEach(input => {
-      input.addEventListener("input", e => {
-        let minPrice = parseInt(priceInput[0].value);
-        let maxPrice = parseInt(priceInput[1].value);
-
-
-
-        if ((maxPrice - this.minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
-          if (e.target.className === "input-min") {
+        input.addEventListener("input", e => {
+          console.log('инпут числовой')
+            let minPrice = parseInt(priceInput[0].value);
+            let maxPrice = parseInt(priceInput[1].value);
+            this.getPriceVal(e,minPrice, maxPrice);
             rangeInput[0].value = minPrice;
             range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-          } else {
             rangeInput[1].value = maxPrice;
             range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-          }
-        }
-        if (this.extraCards.length == 0) {
-          productsContainer.innerHTML = 'Nothing found';
-        }
-      });
+        
+        });
     });
+
     rangeInput.forEach(input => {
-      input.addEventListener("input", e => {
-
-        let minVal = parseInt(rangeInput[0].value),
-          maxVal = parseInt(rangeInput[1].value);
-
-        if ((maxVal - minVal) < priceGap) {
-          if (e.target.className === "range-min") {
-            rangeInput[0].value = maxVal - priceGap
-          } else {
-            rangeInput[1].value = minVal + priceGap;
-          }
-        } else {
-          priceInput[0].value = minVal;
-          priceInput[1].value = maxVal;
-          range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-          range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-        }
-      });
+        input.addEventListener("input", e => {
+          console.log('инпут ползунок')
+            let minVal = parseInt(rangeInput[0].value),
+                maxVal = parseInt(rangeInput[1].value);
+                this.getPriceVal(e,minVal ,maxVal);
+            if ((maxVal - minVal) < priceGap) {
+                if (e.target.className === "range-min") {
+                    rangeInput[0].value = maxVal - priceGap
+                } else {
+                    rangeInput[1].value = minVal + priceGap;
+                }
+            } else {
+                priceInput[0].value = minVal;
+                priceInput[1].value = maxVal;
+                range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+            }
+        });
     });
-    console.log(slider)
   }
 }

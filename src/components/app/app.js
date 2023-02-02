@@ -41,7 +41,8 @@ export default class App {
             console.log(this.storage)
             console.log('append')
             const mainPage = new mainPageStore(this.storage);
-            this.mainSection.innerHTML = mainPage.render(this.storage)
+            this.mainSection.innerHTML = mainPage.render(this.storage);
+            
             mainPage.addListener()
         }
 
@@ -55,7 +56,7 @@ export default class App {
             console.log('basket')
             this.mainSection.innerHTML =''
             const basketPage = new Cart();
-            this.mainSection.innerHTML = basketPage.render()
+            this.mainSection.innerHTML = basketPage.render();
             // this.mainSection.appendChild(basketPage.onLoadBasket())
         }
 
