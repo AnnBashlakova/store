@@ -71,11 +71,11 @@ export default class mainPageStore {
               <div class="price-input" data-filter="price">
   
                 <div class="field field-price">
-                  <input type="number" class="input-min inputMinValue" value="${this.priceMin}" data-filter="price">
+                  <input type="number" id="valPriceMin" class="input-min inputMinValue" value="${this.priceMin}" data-filter="price">
                 </div>
     
                 <div class="field field-price">
-                  <input type="number" class="input-max inputMaxValuePrice" value="${this.priceMax}" data-filter="price">
+                  <input type="number"  id="valPriceMax" class="input-max inputMaxValuePrice" value="${this.priceMax}" data-filter="price">
                 </div>
                 
               </div>
@@ -100,11 +100,11 @@ export default class mainPageStore {
                 <div class="price-input">
     
                   <div class="field">
-                    <input type="number" class="input-min inputMinValue" id="inputMinStock" value="${this.stockMin}" data-filter="stock">
+                    <input type="number"  id="valStockMin" class="input-min inputMinValue" id="inputMinStock" value="${this.stockMin}" data-filter="stock">
                   </div>
       
                   <div class="field ">
-                    <input type="number" class="input-max input-max-stock inputMaxValueStock" id="inputMaxStock" value="${this.stockMax}" data-filter="stock">
+                    <input type="number" id="valStockMax" class="input-max input-max-stock inputMaxValueStock" id="inputMaxStock" value="${this.stockMax}" data-filter="stock">
                   </div>
                   
                 </div>
@@ -205,7 +205,12 @@ export default class mainPageStore {
   addListener() {
     this.slider(document.querySelector('#priceFiltr'));
     this.slider(document.querySelector('#stockFiltr'));
-
+    this.valPriceMin = document.getElementById('valPriceMin')
+    this.valPriceMax = document.getElementById('valPriceMax')
+    this.valStockMin = document.getElementById('valStockMin')
+    this.valStockMax = document.getElementById('valStockMax')
+    console.log(this.valPriceMax.value)
+    console.log(this.valPriceMin.value)
 
   }
 
