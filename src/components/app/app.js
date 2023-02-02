@@ -15,7 +15,7 @@ export default class App {
             priceMax: '1000',
             stockMin: '0',
             stockMax: '45'
-          } , 
+            } , 
             
         }
 
@@ -44,6 +44,7 @@ export default class App {
             this.mainSection.innerHTML = mainPage.render(this.storage);
             
             mainPage.addListener()
+            mainPage.getPriceVal(this.storage)
         }
 
 

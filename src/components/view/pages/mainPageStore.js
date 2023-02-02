@@ -13,15 +13,6 @@ export default class mainPageStore {
 
 
   render(prop) {
-    console.log(prop)
-    // getNumFiltr(this.priceMin, this. priceMax, this.stockMin, this.stockMax);
-    // Listener(){
-    //   console.log('eventlist')
-    // }
-
-
-
-
 
 
     return `
@@ -202,30 +193,30 @@ export default class mainPageStore {
   }
 
 
-  addListener() {
+  addListener(prop) {
+    // console.log(prop)
     this.slider(document.querySelector('#priceFiltr'));
     this.slider(document.querySelector('#stockFiltr'));
     this.valPriceMin = document.getElementById('valPriceMin')
     this.valPriceMax = document.getElementById('valPriceMax')
     this.valStockMin = document.getElementById('valStockMin')
     this.valStockMax = document.getElementById('valStockMax')
-    console.log(this.valPriceMax.value)
-    console.log(this.valPriceMin.value)
+    // console.log(this.valPriceMax.value)
+    // console.log(this.valPriceMin.value)
 
   }
 
-  getPriceVal(e, namb1, namb2) {
-    if (e.target.dataset.filter == 'price') {
-      console.log('price')
-      // this.priceMin = namb1;
-      // this.priceMax = namb2;
-      console.log(namb1)
-    } else {
-      console.log('stock')
-      this.stockMin = namb1;
-      this.stockMax = namb2;
-      console.log(namb1)
-    }
+  getPriceVal(prop) {
+//изменять объект storage
+      console.log(this.valPriceMin.value)
+      console.log(this.valPriceMax.value)
+      console.log(this.valStockMax.value)
+      console.log(this.valStockMin.value)
+      prop.filter.priceMin = this.valPriceMin.value;
+      prop.filter.priceMax = this.valPriceMax.value;
+      prop.filter.stockMin =  this.valStockMin.value;
+      prop.filter.stockMax= this.valStockMax.value
+      // console.log(prop)
   }
 
 
@@ -243,21 +234,23 @@ export default class mainPageStore {
         console.log('инпут числовой')
         let minPrice = parseInt(priceInput[0].value);
         let maxPrice = parseInt(priceInput[1].value);
-        this.getPriceVal(e, minPrice, maxPrice);
+        
         rangeInput[0].value = minPrice;
         range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
         rangeInput[1].value = maxPrice;
         range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-
+        // this.getPriceVal(prop);
+        
       });
     });
 
     rangeInput.forEach(input => {
       input.addEventListener("input", e => {
+        // this.getPriceVal();
         console.log('инпут ползунок')
         let minVal = parseInt(rangeInput[0].value),
           maxVal = parseInt(rangeInput[1].value);
-        this.getPriceVal(e, minVal, maxVal);
+        
         if ((maxVal - minVal) < priceGap) {
           if (e.target.className === "range-min") {
             rangeInput[0].value = maxVal - priceGap
