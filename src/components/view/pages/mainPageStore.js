@@ -208,7 +208,7 @@ export default class mainPageStore {
     this.filterBtns = document.querySelectorAll('.list-item');
     this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
     this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
-    this.getNameFIlter(arr, nameFilterCB)
+    this.getNameFIlter(this.nameFilter, getPriceValCB)
   }
 
 getPriceVal(e,namb1,namb2, getPriceValCB) {
