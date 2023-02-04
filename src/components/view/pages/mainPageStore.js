@@ -193,34 +193,36 @@ export default class mainPageStore {
   }
 
 
-  addListener(prop) {
-    // console.log(prop)
-    this.slider(document.querySelector('#priceFiltr'));
-    this.slider(document.querySelector('#stockFiltr'));
-    this.valPriceMin = document.getElementById('valPriceMin')
-    this.valPriceMax = document.getElementById('valPriceMax')
-    this.valStockMin = document.getElementById('valStockMin')
-    this.valStockMax = document.getElementById('valStockMax')
-    // console.log(this.valPriceMax.value)
-    // console.log(this.valPriceMin.value)
 
+  // addListener(getPriceValCB) {
+  //   // console.log(prop)
+  //   this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
+  //   this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
+  //   this.valPriceMin = document.getElementById('valPriceMin')
+  //   this.valPriceMax = document.getElementById('valPriceMax')
+  //   this.valStockMin = document.getElementById('valStockMin')
+  //   this.valStockMax = document.getElementById('valStockMax')
+  // }
+
+  addListener(getPriceValCB) {
+    this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
+    this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
   }
 
-  getPriceVal(prop) {
-//изменять объект storage
-      console.log(this.valPriceMin.value)
-      console.log(this.valPriceMax.value)
-      console.log(this.valStockMax.value)
-      console.log(this.valStockMin.value)
-      prop.filter.priceMin = this.valPriceMin.value;
-      prop.filter.priceMax = this.valPriceMax.value;
-      prop.filter.stockMin =  this.valStockMin.value;
-      prop.filter.stockMax= this.valStockMax.value
-      // console.log(prop)
+getPriceVal(e,namb1,namb2, getPriceValCB) {
+  if (e.target.dataset.filter =='price') {
+    console.log('getPriceVal')
+      this.priceMin = namb1;
+      this.priceMax = namb2;
+  } else {
+      this.stockMin = namb1;
+      this.stockMax = namb2;
   }
 
+  getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax)
+}
 
-  slider(n) {
+  slider(n, getPriceValCB) {
     const rangeInput = n.querySelectorAll(".range-input input");
     const priceInput = n.querySelectorAll(".price-input input");
     const range = n.querySelector(".slider .progress");
@@ -239,8 +241,8 @@ export default class mainPageStore {
         range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
         rangeInput[1].value = maxPrice;
         range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-        // this.getPriceVal(prop);
-        
+        this.getPriceVal(e, minPrice, maxPrice, getPriceValCB);
+        console.log(maxPrice)
       });
     });
 
@@ -248,8 +250,8 @@ export default class mainPageStore {
       input.addEventListener("input", e => {
         // this.getPriceVal();
         console.log('инпут ползунок')
-        let minVal = parseInt(rangeInput[0].value),
-          maxVal = parseInt(rangeInput[1].value);
+        let minVal = parseInt(rangeInput[0].value);   
+        let maxVal = parseInt(rangeInput[1].value);
         
         if ((maxVal - minVal) < priceGap) {
           if (e.target.className === "range-min") {
@@ -263,6 +265,8 @@ export default class mainPageStore {
           range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
           range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
         }
+        console.log(maxVal)
+        this.getPriceVal(e, minVal, maxVal, getPriceValCB);
       });
     });
   }

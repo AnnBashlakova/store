@@ -37,20 +37,29 @@ export default class App {
         
         
     }
+
+
+        getChangeVal(priceMinCB, priceMaxCB, stockMinCB, stockMaxCB) {
+            this.storage.filter.priceMin = priceMinCB;
+            this.storage.filter.priceMax = priceMaxCB;
+            this.storage.filter.stockMin = stockMinCB;
+            this.storage.filter.stockMax = stockMaxCB;
+            console.log('app')
+        }
+
+
+
+
         StartPage() {
             console.log(this.storage)
             console.log('append')
             const mainPage = new mainPageStore(this.storage);
             this.mainSection.innerHTML = mainPage.render(this.storage);
-            
-            mainPage.addListener()
-            mainPage.getPriceVal(this.storage)
+            mainPage.addListener(this.getChangeVal.bind(this))
+            // mainPage.getPriceVal(this.storage)
         }
 
 
-        // Listener(){
-        //     console.log('eventlist')
-        //   }
 
 
         loadBasket() {
@@ -60,17 +69,6 @@ export default class App {
             this.mainSection.innerHTML = basketPage.render();
             // this.mainSection.appendChild(basketPage.onLoadBasket())
         }
-
-
-        // getPriceVal(e,namb1,namb2) {
-        //     if (e.target.dataset.filter =='price') {
-        //         this.priceMin = namb1;
-        //         this.priceMax = namb2;
-        //     } else {
-        //         this.stockMin = namb1;
-        //         this.stockMax = namb2;
-        //     }
-        // }
 
 
 
