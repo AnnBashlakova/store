@@ -47,8 +47,8 @@ export default class App {
             this.storage.filter.stockMax = stockMaxCB;
             this.storage.nameFilter = [...filtrNameArr]
             console.log('app')
-            console.log(this.storage.nameFilter)
-            console.log(filtrNameArr)
+            console.log(this.storage)
+            // console.log(filtrNameArr)
 
         }
 

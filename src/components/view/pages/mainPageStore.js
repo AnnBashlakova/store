@@ -7,7 +7,7 @@ export default class mainPageStore {
     this.priceMax = prop.filter.priceMax;
     this.stockMin = prop.filter.stockMin;
     this.stockMax = prop.filter.stockMax;
-    this.nameFilter = [];
+    this.nameFilter = prop.nameFilter;
 
   }
 
