@@ -208,7 +208,7 @@ export default class mainPageStore {
     this.filterBtns = document.querySelectorAll('.list-item');
     this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
     this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
-    this.getNameFIlter(this.nameFilter, getPriceValCB)
+    this.getNameFIlter(getPriceValCB)
   }
 
 getPriceVal(e,namb1,namb2, getPriceValCB) {
@@ -273,7 +273,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
     });
   }
 
-  getNameFIlter(arr, filterCB) {
+  getNameFIlter(getPriceValCB) {
     // this.nameFilter = [];
     console.log('getNameFilter')
       for (let btn of this.filterBtns) {
@@ -282,6 +282,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
               btn.classList.add('list-item-active');
               let name = btn.textContent;
                 this.nameFilter.push(name);
+                console.log(this.nameFilter)
                 getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter)
           })
           

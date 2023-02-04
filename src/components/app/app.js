@@ -40,12 +40,16 @@ export default class App {
     }
 
 
-        getChangeVal(priceMinCB, priceMaxCB, stockMinCB, stockMaxCB) {
+        getChangeVal(priceMinCB, priceMaxCB, stockMinCB, stockMaxCB, filtrNameArr) {
             this.storage.filter.priceMin = priceMinCB;
             this.storage.filter.priceMax = priceMaxCB;
             this.storage.filter.stockMin = stockMinCB;
             this.storage.filter.stockMax = stockMaxCB;
+            this.storage.nameFilter = [...filtrNameArr]
             console.log('app')
+            console.log(this.storage.nameFilter)
+            console.log(filtrNameArr)
+
         }
 
 
