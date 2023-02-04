@@ -7,7 +7,7 @@ export default class mainPageStore {
     this.priceMax = prop.filter.priceMax;
     this.stockMin = prop.filter.stockMin;
     this.stockMax = prop.filter.stockMax;
-
+    this.nameFilter = [];
 
   }
 
@@ -205,8 +205,10 @@ export default class mainPageStore {
   // }
 
   addListener(getPriceValCB) {
+    this.filterBtns = document.querySelectorAll('.list-item');
     this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
     this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
+    this.getNameFIlter(arr, nameFilterCB)
   }
 
 getPriceVal(e,namb1,namb2, getPriceValCB) {
@@ -219,7 +221,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
       this.stockMax = namb2;
   }
 
-  getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax)
+  getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter)
 }
 
   slider(n, getPriceValCB) {
@@ -270,4 +272,42 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
       });
     });
   }
+
+  getNameFIlter(arr, filterCB) {
+    // this.nameFilter = [];
+    console.log('getNameFilter')
+      for (let btn of this.filterBtns) {
+          btn.addEventListener('click', () => {
+              btn.toggleAttribute("disabled");
+              btn.classList.add('list-item-active');
+              let name = btn.textContent;
+                this.nameFilter.push(name);
+                getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter)
+          })
+          
 }
+
+        }
+    //         
+    //          let name = btn.textContent;
+    //          this.nameFilter.push(name)
+    //          console.log(this.nameFilter)
+    //          if (btn.dataset.filter == 'category') {
+    //              this.Category.push(name);
+    //              console.log(this.Category)
+    //          } else {
+    //              this.Brand.push(name);
+    //          }
+
+  
+    //          this.changeUrl(this.Brand, this.Category);
+    //          this.SortCard(cards)
+    //          console.log(this.extraCards)
+    //          // this.RenderCards(this.extraCards)
+    //          this.NewFiltArr(cards, this.nameFilter)
+    //      });
+ 
+    //  };
+    
+ };
+

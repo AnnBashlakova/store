@@ -10,12 +10,13 @@ export default class App {
     constructor() {
 
        this.storage = {
-          filter: {
+            filter: {
             priceMin: '2',
             priceMax: '1000',
             stockMin: '0',
             stockMax: '45'
-            } , 
+            } ,
+        nameFilter: [],
             
         }
 
