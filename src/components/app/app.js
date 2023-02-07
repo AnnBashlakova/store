@@ -63,19 +63,7 @@ export default class App {
             console.log('append')
             const mainPage = new mainPageStore(this.storage);
             this.mainSection.innerHTML = mainPage.render(this.storage);
-            mainPage.addListener(this.getChangeVal.bind(this))
-            this.ranges = document.querySelectorAll(".slider .progress");
-       
-            this.ranges[0].style.left = ((this.storage.filter.priceMin / 1000) * 100) + "%";
-            this.ranges[0].style.right = 100 - (this.storage.filter.priceMax/ 1000) * 100 + "%";
-            this.ranges[1].style.left = ((this.storage.filter.stockMin / this.storage.filter.stockMax) * 100) + "%";
-            this.ranges[1].style.right = 100 - (this.storage.filter.stockMax / 50) * 100 + "%";
-            
-            // document.querySelectorAll('.list-item').forEach(function (item) {
-            // //   if( this.storage.nameFilter.includes(item.textContent)) 
-            //       console.log(this.storage.nameFilter)
-            //     } )
-
+            mainPage.addListener(this.getChangeVal.bind(this));
             this.getStyle(document.querySelectorAll('.list-item'),  this.storage.nameFilter)
 
 
@@ -83,28 +71,21 @@ export default class App {
 
 
         getStyle(arr1, nameFilter) {
-            
+                for (let i =0; i<arr1.length; i++){
+                    if (nameFilter.includes(arr1[i].textContent)){
+                    arr1[i].classList.add('list-item-active');
+                    arr1[i].setAttribute("disabled", "disabled");
+                    };
+                };
 
+                this.ranges = document.querySelectorAll(".slider .progress");
+       
+                this.ranges[0].style.left = ((this.storage.filter.priceMin / 1000) * 100) + "%";
+                this.ranges[0].style.right = 100 - (this.storage.filter.priceMax/ 1000) * 100 + "%";
+                this.ranges[1].style.left = ((this.storage.filter.stockMin / this.storage.filter.stockMax) * 100) + "%";
+                this.ranges[1].style.right = 100 - (this.storage.filter.stockMax / 50) * 100 + "%";
+            };
 
-                console.log(bigArr)
-                console.log(smallArr)
-
-                // bigArr.map((elementBig) => {
-                //     console.log(elementBig)
-                // })
-                //     smallArr.map(elementSmall=>{
-                //       if(elementBig.textContent === elementSmall){
-                //         bigArr.splice(indexBig, 1, elementBig.textContent+= " add style");
-                //       }
-                      
-                //     })
-                    
-                //   })
-                //   return bigArr;
-
-
-        }
-                
             
     
 
