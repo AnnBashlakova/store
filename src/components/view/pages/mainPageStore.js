@@ -206,6 +206,7 @@ export default class mainPageStore {
 
   addListener(getPriceValCB) {
     this.filterBtns = document.querySelectorAll('.list-item');
+
     this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
     this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
     this.getNameFIlter(getPriceValCB)
@@ -244,7 +245,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
         rangeInput[1].value = maxPrice;
         range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
         this.getPriceVal(e, minPrice, maxPrice, getPriceValCB);
-        console.log(maxPrice)
+
       });
     });
 
@@ -266,6 +267,8 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
           priceInput[1].value = maxVal;
           range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
           range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+
+
         }
         console.log(maxVal)
         this.getPriceVal(e, minVal, maxVal, getPriceValCB);
@@ -278,7 +281,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
     console.log('getNameFilter')
       for (let btn of this.filterBtns) {
           btn.addEventListener('click', () => {
-              btn.toggleAttribute("disabled");
+              btn.setAttribute("disabled", "disabled");
               btn.classList.add('list-item-active');
               let name = btn.textContent;
                 this.nameFilter.push(name);
