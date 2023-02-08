@@ -23,7 +23,8 @@ export default class App {
         // console.log(storage)
         this.mainSection = document.querySelector('.large-section');
         this.BtnOpenMainPage = document.querySelector('.sneaker-icon-link');
-        this.BtnOpenBasket = document.querySelector('.basket-icon-link')
+        this.BtnOpenBasket = document.querySelector('.basket-icon-link');
+        this.extraCards = [...cards];
 
         this.BtnOpenMainPage.addEventListener('click', () => {
             this.StartPage();
@@ -46,8 +47,10 @@ export default class App {
             this.storage.filter.stockMax = stockMaxCB;
             this.storage.nameFilter = [...filtrNameArr]
             console.log('app')
-            console.log(this.storage)
-
+            this.NewFiltArr();
+            if(this.extraCards.length == 0) {
+                this.productsContainer.innerHTML = 'Nothing found';
+            }
         }
 
 
@@ -60,7 +63,8 @@ export default class App {
             this.mainSection.innerHTML = mainPage.render(this.storage);
             mainPage.addListener(this.getChangeVal.bind(this));
             this.getStyle(document.querySelectorAll('.list-item'),  this.storage.nameFilter);
-            this.RenderCards(cards)
+            this.RenderCards(this.extraCards)
+            // console.log(this.extraCards)
 
             }
 
@@ -90,7 +94,38 @@ export default class App {
                 this.ranges[1].style.right = 100 - (this.storage.filter.stockMax / 50) * 100 + "%";
             };
 
+            NewFiltArr(arr1) {
+
+                console.log(this.extraCards)
+                if (this.storage.nameFilter == 0 ) {
+                    
+                    this.extraCards = cards.filter(item =>item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax);
             
+                    console.log(this.extraCards)
+                } 
+                // else if (this.Brand.length == 0 || this.Category.length == 0) {
+                //     // console.log(searchInput.value.length)
+                //     this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  ||  params.includes(item.category))
+            
+
+            
+                // } else  {
+                //     this.extraCards = arr1.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && params.includes(item.brand)  &&  params.includes(item.category))
+                
+                //     if (this.extraCards.length == 0) {
+                //         this.productsContainer.innerHTML = 'Nothing found';
+                //     }
+                // };
+
+                
+
+                // if (this.extraCards.length == 0) {
+                //     this.productsContainer.innerHTML = 'Nothing found';
+                // }
+                
+                this.RenderCards(this.extraCards)
+            };
+
     
 
 
