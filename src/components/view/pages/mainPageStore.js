@@ -8,6 +8,8 @@ export default class mainPageStore {
     this.stockMin = prop.filter.stockMin;
     this.stockMax = prop.filter.stockMax;
     this.nameFilter = prop.nameFilter;
+    this.brandFilter = prop.brandFilter;
+    this.categoryFilter = prop.categoryFilter;
 
   }
 
@@ -210,7 +212,7 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
       this.stockMax = namb2;
   }
 
-  getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter)
+  getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter, this.brandFilter, this.categoryFilter)
 }
 
   slider(n, getPriceValCB) {
@@ -270,7 +272,14 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
               let name = btn.textContent;
                 this.nameFilter.push(name);
                 console.log(this.nameFilter)
-                getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter)
+                if (btn.dataset.filter == 'category') {
+                        this.categoryFilter.push(name);
+                                console.log(this.categoryFilter)
+                            } else {
+                            this.brandFilter.push(name);
+                            console.log(this.brandFilter)
+                            }
+                getPriceValCB && getPriceValCB(this.priceMin, this.priceMax, this.stockMin, this.stockMax, this.nameFilter, this.categoryFilter, this.brandFilter)
           })
           
 }

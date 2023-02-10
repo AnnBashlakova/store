@@ -17,6 +17,9 @@ export default class App {
                 stockMax: '45'
             },
             nameFilter: [],
+            brandFilter: [],
+            categoryFilter: [],
+            sortParam: '',
 
         }
 
@@ -40,12 +43,14 @@ export default class App {
 
 
 
-    getChangeVal(priceMinCB, priceMaxCB, stockMinCB, stockMaxCB, filtrNameArr) {
+    getChangeVal(priceMinCB, priceMaxCB, stockMinCB, stockMaxCB, filtrNameArr, categoryFilter, brandFilter) {
         this.storage.filter.priceMin = priceMinCB;
         this.storage.filter.priceMax = priceMaxCB;
         this.storage.filter.stockMin = stockMinCB;
         this.storage.filter.stockMax = stockMaxCB;
-        this.storage.nameFilter = [...filtrNameArr]
+        this.storage.nameFilter = [...filtrNameArr];
+        this.storage.categoryFilter = [...categoryFilter];
+        this.storage.brandFilter = [...brandFilter];
         console.log('app')
         this.NewFiltArr();
         if (this.extraCards.length == 0) {
@@ -91,17 +96,29 @@ export default class App {
     };
 
     NewFiltArr() {
-
         if (this.storage.nameFilter.length == 0) {
-            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax);
+            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin 
+                && item.price <= this.storage.filter.priceMax 
+                && item.stock >= this.storage.filter.stockMin 
+                && item.stock <= this.storage.filter.stockMax);
 
-        } else {
-            console.log('фильтр с именами')
-            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand)&& this.storage.nameFilter.includes(item.category))
-            // this.extraCards = cards.filter(item => this.storage.nameFilter.includes(item.brand))
-            
-            // this.extraCards = arr1.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand));
-        }
+        }else if (this.storage.categoryFilter.length == 0 || this.storage.brandFilter.length == 0) {
+            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin 
+                && item.price <= this.storage.filter.priceMax 
+                && item.stock >= this.storage.filter.stockMin 
+                && item.stock <= this.storage.filter.stockMax 
+                && this.storage.brandFilter.includes(item.brand) 
+                || this.storage.categoryFilter.includes(item.category));
+    
+    
+        }else if  (this.storage.categoryFilter.length !== 0 && this.storage.brandFilter.length !== 0) {
+            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin 
+                && item.price <= this.storage.filter.priceMax 
+                && item.stock >= this.storage.filter.stockMin 
+                && item.stock <= this.storage.filter.stockMax 
+                && this.storage.nameFilter.includes(item.brand) 
+                && this.storage.nameFilter.includes(item.category));
+        };
 
         this.RenderCards(this.extraCards)
     };
