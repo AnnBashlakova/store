@@ -97,7 +97,7 @@ export default class App {
 
         } else {
             console.log('фильтр с именами')
-            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand))
+            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand)&& this.storage.nameFilter.includes(item.category))
             // this.extraCards = cards.filter(item => this.storage.nameFilter.includes(item.brand))
             
             // this.extraCards = arr1.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand));
