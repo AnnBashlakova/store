@@ -192,18 +192,6 @@ export default class mainPageStore {
     return null;
   }
 
-
-
-  // addListener(getPriceValCB) {
-  //   // console.log(prop)
-  //   this.slider(document.querySelector('#priceFiltr'), getPriceValCB);
-  //   this.slider(document.querySelector('#stockFiltr'), getPriceValCB);
-  //   this.valPriceMin = document.getElementById('valPriceMin')
-  //   this.valPriceMax = document.getElementById('valPriceMax')
-  //   this.valStockMin = document.getElementById('valStockMin')
-  //   this.valStockMax = document.getElementById('valStockMax')
-  // }
-
   addListener(getPriceValCB) {
     this.filterBtns = document.querySelectorAll('.list-item');
 
@@ -230,9 +218,6 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
     const priceInput = n.querySelectorAll(".price-input input");
     const range = n.querySelector(".slider .progress");
     let priceGap = 10;
-
-    console.log('/**')
-
     //слушатель на инпут
     priceInput.forEach(input => {
       input.addEventListener("input", e => {
@@ -270,7 +255,6 @@ getPriceVal(e,namb1,namb2, getPriceValCB) {
 
 
         }
-        console.log(maxVal)
         this.getPriceVal(e, minVal, maxVal, getPriceValCB);
       });
     });

@@ -57,8 +57,6 @@ export default class App {
 
 
     StartPage() {
-        console.log(this.storage)
-        console.log('append')
         const mainPage = new mainPageStore(this.storage);
         this.mainSection.innerHTML = mainPage.render(this.storage);
         mainPage.addListener(this.getChangeVal.bind(this));
@@ -75,8 +73,6 @@ export default class App {
             const allCards = new Card(item);
             return allCards.render()
         })).join("")
-        console.log(arr)
-        console.log(this.productsContainer)
     }
 
     getStyle(arr1, nameFilter) {
@@ -100,9 +96,10 @@ export default class App {
             this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax);
 
         } else {
-            console.log('aaaa')
+            console.log('фильтр с именами')
+            // this.extraCards = cards.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && this.storage.nameFilter.includes(item.brand))
+            this.extraCards = cards.filter(item => this.storage.nameFilter.includes(item.brand) && this.storage.nameFilter.includes(item.category))
             // this.extraCards = arr1.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand));
-            console.log(this.extraCards)
         }
 
         this.RenderCards(this.extraCards)
