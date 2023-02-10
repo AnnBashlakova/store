@@ -90,15 +90,16 @@ export default class App {
         this.ranges[1].style.right = 100 - (this.storage.filter.stockMax / 50) * 100 + "%";
     };
 
-    NewFiltArr(arr1) {
+    NewFiltArr() {
 
-        if (this.storage.nameFilter == 0) {
+        if (this.storage.nameFilter.length == 0) {
             this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax);
 
         } else {
             console.log('фильтр с именами')
-            // this.extraCards = cards.filter(item => item.price >=this.priceMin && item.price <= this.priceMax && item.stock >= this.stockMin && item.stock <= this.stockMax && this.storage.nameFilter.includes(item.brand))
-            this.extraCards = cards.filter(item => this.storage.nameFilter.includes(item.brand) && this.storage.nameFilter.includes(item.category))
+            this.extraCards = cards.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand))
+            // this.extraCards = cards.filter(item => this.storage.nameFilter.includes(item.brand))
+            
             // this.extraCards = arr1.filter(item => item.price >= this.storage.filter.priceMin && item.price <= this.storage.filter.priceMax && item.stock >= this.storage.filter.stockMin && item.stock <= this.storage.filter.stockMax && this.storage.nameFilter.includes(item.brand));
         }
 
