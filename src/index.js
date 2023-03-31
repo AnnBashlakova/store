@@ -1,8 +1,12 @@
 import './assets/styles/css/normalize.css';
 import './assets/styles/sass/style.sass';
 //import handlerLoc from './components/router/router.js'
-//import { App } from "./components/app/app";
+import cards from "./data.js";
+// import Card from "../view/components/card.js";
 
-//const app = new App()
 
+import  App  from "./components/app/app.js";
 
+const app = new App()
+
+app.StartPage();
